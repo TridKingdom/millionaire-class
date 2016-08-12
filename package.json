@@ -1,29 +1,31 @@
 {
-  "name": "reveal.js",
-  "version": "3.3.0",
-  "description": "The HTML Presentation Framework",
-  "homepage": "http://lab.hakim.se/reveal-js",
-  "subdomain": "revealjs",
+  "name": "tk-millionaire-class",
+  "version": "1.0.0",
+  "description": "An interactive course to empower children",
+  "homepage": "http://tridkingdom.com",
   "main": "js/reveal.js",
   "scripts": {
     "test": "grunt test",
     "start": "grunt serve"
   },
   "author": {
-    "name": "Hakim El Hattab",
-    "email": "hakim.elhattab@gmail.com",
-    "web": "http://hakim.se"
+    "name": "kavare",
+    "email": "aarontthsieh@gmail.com",
+    "web": "http://kavare.github.io/portfolio"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hakimel/reveal.js.git"
+    "url": "git://github.com/TridKingdom/millionaire-class.git"
   },
   "engines": {
     "node": "~4.1.1"
   },
   "dependencies": {
+    "babyparse": "^0.4.6",
     "express": "~4.13.3",
     "grunt-cli": "~0.1.13",
+    "jquery": "^3.1.0",
+    "lodash": "^4.14.2",
     "mustache": "~2.2.1",
     "socket.io": "~1.3.7"
   },

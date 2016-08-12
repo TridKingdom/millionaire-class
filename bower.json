@@ -1,22 +1,22 @@
 {
-  "name": "reveal.js",
-  "version": "3.3.0",
+  "name": "tk-millionaire-class",
+  "version": "1.0.0",
   "main": [
     "js/reveal.js",
     "css/reveal.css"
   ],
-  "homepage": "http://lab.hakim.se/reveal-js/",
+  "homepage": "http://tridkingdom.com",
   "license": "MIT",
-  "description": "The HTML Presentation Framework",
+  "description": "An interactive course to empower children",
   "authors": [
-    "Hakim El Hattab <hakim.elhattab@gmail.com>"
+    "kavare <aarontthsieh@gmail.com>"
   ],
   "dependencies": {
     "headjs": "~1.0.3"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hakimel/reveal.js.git"
+    "url": "git://github.com/TridKingdom/millionaire-class.git"
   },
   "ignore": [
     "**/.*",

@@ -1,0 +1,33 @@
+.reveal .tk-answers-container {
+  margin-top: 60px;
+}
+
+.reveal .tk-answers-container .tk-answer {
+  float: left;
+  width: 47.5%;
+  margin: 1.25%;
+  text-align: left;
+}
+
+.reveal .tk-answers-container .tk-answer strong {
+  margin-right: 2rem;
+  line-height: 2;
+}
+
+.reveal .tk-title {
+
+}
+
+.reveal .tk-title strong {
+  margin-right: 2rem;
+  line-height: 2;
+}
+
+
+.reveal .tk-answers-container .tk-answer-img {
+
+}
+
+.reveal .tk-answers-container .tk-answer-info {
+
+}

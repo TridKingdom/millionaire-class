@@ -4,13 +4,17 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>奇德王國 Trid Kingdom -- 百萬小學堂</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Customized css -->
+		<link rel="stylesheet" href="css/utils.css">
+		<link rel="stylesheet" href="css/app.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -24,27 +28,25 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h2>奇德王國 Trid Kingdom</h2>
+					<h3>百萬小學堂</h3>
+				</section>
 			</div>
 		</div>
 
+
+		<!-- Javascript resources -->
+		<script src="lib/js/jquery.min.js"></script>
+		<script src="lib/js/lodash.min.js"></script>
+		<script src="lib/js/babyparse.min.js"></script>
 		<script src="lib/js/head.min.js"></script>
 		<script src="js/reveal.js"></script>
 
+		<script src="js/config.js"></script>
+		<script src="js/app.js"></script>
 		<script>
-			// More info https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				history: true,
 
-				// More info https://github.com/hakimel/reveal.js#dependencies
-				dependencies: [
-					{ src: 'plugin/markdown/marked.js' },
-					{ src: 'plugin/markdown/markdown.js' },
-					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
-			});
 		</script>
 	</body>
 </html>
