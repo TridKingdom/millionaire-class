@@ -1,43 +1,88 @@
+/* =============================================================================
+ *
+ * [Data Initialization Block]
+ * The following data would be used accross the application
+ * Notice They are global and would be polluted if use it in a sloppy way
+ *
+ * ========================================================================== */
+
 var csvSource = {
   local: {
     'basic': 'data/basic.csv',
-    'europe': 'data/europe.csv',
     'taiwan': 'data/taiwan.csv',
+    'world': 'data/world.csv',
   },
   drive: {
     'basic': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
-    'europe': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
     'taiwan': 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
+    'world': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
   }
 };
 
 var questionModules = {
   basic: {},
-  europe: {},
   taiwan: {},
+  world: {},
 };
 
 
+/* =============================================================================
+ *
+ * [Functions Definition Block]
+ * The following functions would be called later on
+ *
+ * Underscore function means it would be running internally
+ * Public functions would be called directlly in html
+ *
+ * ========================================================================== */
 
-function _getQuestionModules(moduleName, callback) {
-  $.ajax({
+/* =============================================================================
+ * [Public Functions]
+ * ========================================================================== */
+
+function activate() {
+
+}
+
+function loadQuestionModule(module) {
+  _buildModule(module);
+}
+
+/* =============================================================================
+ * [Private Functions]
+ * ========================================================================== */
+
+function _buildModule(moduleName) {
+  _fetchQuestionModule(moduleName)
+    .then(_parseQuestionModule)
+    .then(_compileQuestionsSlides)
+    .then(_insertSlidesToView);
+}
+
+function _fetchQuestionModule(moduleName) {
+  return $.ajax({
     url: csvSource.local[moduleName],
     type: 'GET',
   })
   .then(function(csvString) {
-      questionModules[moduleName] = Papa.parse(csvString, {header: true}).data;
-      return questionModules[moduleName];
+    return {
+      name: moduleName,
+      csv: csvString,
+    };
   })
-  .then(callback)
   .fail(function() {
     console.log('Fail loading question module <' + moduleName + '> , please try another one');
   });
+
 }
 
+function _parseQuestionModule(module) {
+  questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
+  return questionModules[module.name];
+}
 
-_getQuestionModules('basic', function(questions) {
-  var $container = $('.reveal');
-  var $slides = $('.reveal .slides');
+function _compileQuestionsSlides(questions) {
+  var slides = '';
 
   $.each(questions, function(index, question) {
     var answerOption = 'option' + question.answer;
@@ -58,7 +103,21 @@ _getQuestionModules('basic', function(questions) {
           '<p class="tk-answer-info">' + question.info + '</p>' +
         '</section>' +
       '</section>';
-
-    $slides.append(template);
+    slides += template;
   });
-});
+
+  return slides;
+}
+
+function _insertSlidesToView(slides) {
+  $('.reveal .slides').append(slides);
+}
+
+/* =============================================================================
+ *
+ * [Execution Block]
+ * The following lines will be executed sequentially
+ *
+ * ========================================================================== */
+
+activate();
