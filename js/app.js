@@ -1,8 +1,8 @@
 var csvSource = {
   local: {
-    'basic': '/data/basic.csv',
-    'europe': '/data/europe.csv',
-    'taiwan': '/data/taiwan.csv',
+    'basic': 'data/basic.csv',
+    'europe': 'data/europe.csv',
+    'taiwan': 'data/taiwan.csv',
   },
   drive: {
     'basic': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
