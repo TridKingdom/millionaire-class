@@ -1,3 +1,15 @@
+.reveal .tk-logo {
+  border: 0;
+  border-radius: 50%;
+  background-color: #eee8d5;
+}
+
+.reveal .tk-logo.tk-logo--lg {
+  width: 20%;
+}
+
+
+
 .reveal .tk-answers-container {
   margin-top: 60px;
 }
