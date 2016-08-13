@@ -45,7 +45,14 @@ function activate() {
 }
 
 function loadQuestionModule(module) {
-  _buildModule(module);
+  return _buildModule(module)
+    .then(function() {
+      window.location.href = window.location.origin + '/#/slide-ready';
+    })
+    .fail(function() {
+      window.location.href = window.location.origin;
+      console.log('Fail loading question module <' + module + '> , please try another one');
+    });
 }
 
 /* =============================================================================
@@ -53,7 +60,7 @@ function loadQuestionModule(module) {
  * ========================================================================== */
 
 function _buildModule(moduleName) {
-  _fetchQuestionModule(moduleName)
+  return _fetchQuestionModule(moduleName)
     .then(_parseQuestionModule)
     .then(_compileQuestionsSlides)
     .then(_updateSlides);
@@ -82,13 +89,17 @@ function _parseQuestionModule(module) {
 }
 
 function _compileQuestionsSlides(questions) {
-  var slides = '';
+  var slides =
+    '<section id="slide-ready" class="js-question-set"' +
+      'data-transition="zoom-in zoom-out" data-background="#4D7E65" data-background-transition="zoom">' +
+      '<h1>那就開始囉！</h1>' +
+    '</section>';
 
   $.each(questions, function(index, question) {
     var answerOption = 'option' + question.answer;
     var template =
-      '<section data-transition="slide-in fade-out" class="js-question-set">' +
-        '<section data-transition="slide-in fade-out">' +
+      '<section data-transition="convex-in convex-out" class="js-question-set">' +
+        '<section data-transition="slide-in slide-out">' +
           '<h3 class="fragment grow" data-fragment-index="1">' + question.question + '</h3>' +
           '<article class="fragment tk-answers-container clearfix" data-fragment-index="1">' +
             '<h3 class="tk-answer"><strong>1</strong> ' + question.option1 + '</h3>' +
@@ -97,7 +108,7 @@ function _compileQuestionsSlides(questions) {
             '<h3 class="tk-answer"><strong>4</strong> ' + question.option4 + '</h3>' +
           '</article>' +
         '</section>' +
-        '<section data-transition="slide-in fade-out">' +
+        '<section data-transition="slide-in slide-out">' +
           '<h2 class="tk-title"><strong>' + question.answer + '</strong> ' + question[answerOption] + '</h2>' +
           '<img class="tk-answer-img" data-src="' + question.image + '" alt="' + '" />' +
           '<p class="tk-answer-info">' + question.info + '</p>' +
