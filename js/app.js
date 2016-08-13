@@ -56,7 +56,7 @@ function _buildModule(moduleName) {
   _fetchQuestionModule(moduleName)
     .then(_parseQuestionModule)
     .then(_compileQuestionsSlides)
-    .then(_insertSlidesToView);
+    .then(_updateSlides);
 }
 
 function _fetchQuestionModule(moduleName) {
@@ -87,7 +87,7 @@ function _compileQuestionsSlides(questions) {
   $.each(questions, function(index, question) {
     var answerOption = 'option' + question.answer;
     var template =
-      '<section data-transition="slide-in fade-out">' +
+      '<section data-transition="slide-in fade-out" class="js-question-set">' +
         '<section data-transition="slide-in fade-out">' +
           '<h3 class="fragment grow" data-fragment-index="1">' + question.question + '</h3>' +
           '<article class="fragment tk-answers-container clearfix" data-fragment-index="2">' +
@@ -109,9 +109,11 @@ function _compileQuestionsSlides(questions) {
   return slides;
 }
 
-function _insertSlidesToView(slides) {
-  $('.reveal .slides').append(slides);
+function _updateSlides(slides) {
+   $('.reveal .slides .js-question-set').remove();
+   $('#slide-index').after(slides);
 }
+
 
 /* =============================================================================
  *
