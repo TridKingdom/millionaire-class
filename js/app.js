@@ -47,10 +47,10 @@ function activate() {
 function loadQuestionModule(module) {
   return _buildModule(module)
     .then(function() {
-      window.location.href = window.location.origin + '/#/slide-ready';
+      window.location.href = window.location.origin + window.location.pathname + '/#/slide-ready';
     })
     .fail(function() {
-      window.location.href = window.location.origin;
+      window.location.href = window.location.origin + window.location.pathname;
       console.log('Fail loading question module <' + module + '> , please try another one');
     });
 }
