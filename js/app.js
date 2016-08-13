@@ -47,7 +47,7 @@ function activate() {
 function loadQuestionModule(module) {
   return _buildModule(module)
     .then(function() {
-      window.location.href = window.location.origin + window.location.pathname + '/#/slide-ready';
+      window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
     })
     .fail(function() {
       window.location.href = window.location.origin + window.location.pathname;
