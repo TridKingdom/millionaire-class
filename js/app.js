@@ -90,7 +90,7 @@ function _compileQuestionsSlides(questions) {
       '<section data-transition="slide-in fade-out" class="js-question-set">' +
         '<section data-transition="slide-in fade-out">' +
           '<h3 class="fragment grow" data-fragment-index="1">' + question.question + '</h3>' +
-          '<article class="fragment tk-answers-container clearfix" data-fragment-index="2">' +
+          '<article class="fragment tk-answers-container clearfix" data-fragment-index="1">' +
             '<h3 class="tk-answer"><strong>1</strong> ' + question.option1 + '</h3>' +
             '<h3 class="tk-answer"><strong>2</strong> ' + question.option2 + '</h3>' +
             '<h3 class="tk-answer"><strong>3</strong> ' + question.option3 + '</h3>' +
@@ -103,7 +103,16 @@ function _compileQuestionsSlides(questions) {
           '<p class="tk-answer-info">' + question.info + '</p>' +
         '</section>' +
       '</section>';
-    slides += template;
+
+    var $template = $('<div />', {html:template});
+
+    $template
+      .find('.tk-answer')
+        .eq(question.answer - 1)
+          .addClass('fragment highlight-blue')
+          .data('fragment-index', 2);
+
+    slides += $template.html();
   });
 
   return slides;
