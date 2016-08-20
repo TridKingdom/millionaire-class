@@ -1,4 +1,4 @@
-(function($, _, Papa) {
+(function($, _, Handlebars, Papa) {
   // /* =============================================================================
   //  *
   //  * [Data Initialization Block]
@@ -20,6 +20,18 @@
     }
   };
 
+  var templateSource = {
+    qcac: 'templates/qcac.hbs',
+    qiac: 'templates/qiac.hbs',
+    qvac: 'templates/qvac.hbs',
+    qaac: 'templates/qaac.hbs',
+    qcai: 'templates/qcai.hbs',
+    qcan: 'templates/qcan.hbs',
+    qian: 'templates/qian.hbs',
+    qvan: 'templates/qvan.hbs',
+    qaan: 'templates/qaan.hbs'
+  };
+
   var questionModules = {
     basic: {},
     taiwan: {},
@@ -36,125 +48,141 @@
   //  * Public functions would be called directlly in html
   //  *
   //  * ========================================================================== */
+  //
+  $(function() {
 
+    // /* =============================================================================
+    //  * [Event Handler Registrations]
+    //  * ========================================================================== */
 
-  // /* =============================================================================
-  //  * [Event Handler Registrations]
-  //  * ========================================================================== */
+    function activate() {
+      _registerLoadQuestionModuleHandler();
+      // _compileTemplate('qaac', {name: 'qaaccccccc'})
+      //   .then(function(result) {
+      //     console.log(result);
+      //   });
+    }
 
-  function activate() {
-    _registerLoadQuestionModuleHandler();
-  }
+    function _registerLoadQuestionModuleHandler() {
+      $('.js-load-question-module').on('click', function(event) {
+        var $this = $(this);
+        _loadQuestionModule($this.data('module'));
+      });
+    }
 
-  function _registerLoadQuestionModuleHandler() {
-    $('.js-load-question-module').on('click', function(event) {
-      var $this = $(this);
-      _loadQuestionModule($this.data('module'));
-    });
-  }
+    // /* =============================================================================
+    //  * [Event Handler Functions]
+    //  * ========================================================================== */
 
-  // /* =============================================================================
-  //  * [Event Handler Functions]
-  //  * ========================================================================== */
+    function _loadQuestionModule(moduleName) {
+      return _buildModule(moduleName)
+        .then(function() {
+          window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
+        })
+        .fail(function() {
+          window.location.href = window.location.origin + window.location.pathname;
+          console.log('Fail loading question module <' + moduleName + '> , please try another one');
+        });
+    }
 
-  function _loadQuestionModule(moduleName) {
-    return _buildModule(moduleName)
-      .then(function() {
-        window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
+    // /* =============================================================================
+    //  * [Private Functions]
+    //  * ========================================================================== */
+
+    function _buildModule(moduleName) {
+      return _fetchQuestionModule(moduleName)
+        .then(_parseQuestionModule)
+        .then(_compileQuestionsSlides)
+        .then(_updateSlides);
+    }
+
+    function _fetchQuestionModule(moduleName) {
+      return $.ajax({
+        url: csvSource.local[moduleName],
+        type: 'GET',
+      })
+      .then(function(csvString) {
+        return {
+          name: moduleName,
+          csv: csvString,
+        };
       })
       .fail(function() {
-        window.location.href = window.location.origin + window.location.pathname;
         console.log('Fail loading question module <' + moduleName + '> , please try another one');
       });
-  }
 
-  // /* =============================================================================
-  //  * [Private Functions]
-  //  * ========================================================================== */
+    }
 
-  function _buildModule(moduleName) {
-    return _fetchQuestionModule(moduleName)
-      .then(_parseQuestionModule)
-      .then(_compileQuestionsSlides)
-      .then(_updateSlides);
-  }
+    function _parseQuestionModule(module) {
+      questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
+      return questionModules[module.name];
+    }
 
-  function _fetchQuestionModule(moduleName) {
-    return $.ajax({
-      url: csvSource.local[moduleName],
-      type: 'GET',
-    })
-    .then(function(csvString) {
-      return {
-        name: moduleName,
-        csv: csvString,
-      };
-    })
-    .fail(function() {
-      console.log('Fail loading question module <' + moduleName + '> , please try another one');
-    });
-
-  }
-
-  function _parseQuestionModule(module) {
-    questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
-    return questionModules[module.name];
-  }
-
-  function _compileQuestionsSlides(questions) {
-    var slides =
-      '<section id="slide-ready" class="js-question-set"' +
-        'data-transition="zoom-in zoom-out" data-background="#4D7E65" data-background-transition="zoom">' +
-        '<h1>那就開始囉！</h1>' +
-      '</section>';
-
-    $.each(questions, function(index, question) {
-      var answerOption = 'option' + question.answer;
-      var template =
-        '<section data-transition="convex-in convex-out" class="js-question-set">' +
-          '<section data-transition="slide-in slide-out">' +
-            '<h3 class="fragment grow" data-fragment-index="1">' + question.question + '</h3>' +
-            '<article class="fragment tk-answers-container clearfix" data-fragment-index="1">' +
-              '<h3 class="tk-answer"><strong>1</strong> ' + question.option1 + '</h3>' +
-              '<h3 class="tk-answer"><strong>2</strong> ' + question.option2 + '</h3>' +
-              '<h3 class="tk-answer"><strong>3</strong> ' + question.option3 + '</h3>' +
-              '<h3 class="tk-answer"><strong>4</strong> ' + question.option4 + '</h3>' +
-            '</article>' +
-          '</section>' +
-          '<section data-transition="slide-in slide-out">' +
-            '<h2 class="tk-title"><strong>' + question.answer + '</strong> ' + question[answerOption] + '</h2>' +
-            '<img class="tk-answer-img" data-src="' + question.image + '" alt="' + '" />' +
-            '<p class="tk-answer-info">' + question.info + '</p>' +
-          '</section>' +
+    function _compileQuestionsSlides(questions) {
+      var slides =
+        '<section id="slide-ready" class="js-question-set"' +
+          'data-transition="zoom-in zoom-out" data-background="#4D7E65" data-background-transition="zoom">' +
+          '<h1>那就開始囉！</h1>' +
         '</section>';
 
-      var $template = $('<div />', {html:template});
+      $.each(questions, function(index, question) {
+        var answerOption = 'option' + question.answer;
+        var template =
+          '<section data-transition="convex-in convex-out" class="js-question-set">' +
+            '<section data-transition="slide-in slide-out">' +
+              '<h3 class="fragment grow" data-fragment-index="1">' + question.question + '</h3>' +
+              '<article class="fragment tk-answers-container clearfix" data-fragment-index="1">' +
+                '<h3 class="tk-answer"><strong>1</strong> ' + question.option1 + '</h3>' +
+                '<h3 class="tk-answer"><strong>2</strong> ' + question.option2 + '</h3>' +
+                '<h3 class="tk-answer"><strong>3</strong> ' + question.option3 + '</h3>' +
+                '<h3 class="tk-answer"><strong>4</strong> ' + question.option4 + '</h3>' +
+              '</article>' +
+            '</section>' +
+            '<section data-transition="slide-in slide-out">' +
+              '<h2 class="tk-title"><strong>' + question.answer + '</strong> ' + question[answerOption] + '</h2>' +
+              '<img class="tk-answer-img" data-src="' + question.image + '" alt="' + '" />' +
+              '<p class="tk-answer-info">' + question.info + '</p>' +
+            '</section>' +
+          '</section>';
 
-      $template
-        .find('.tk-answer')
-          .eq(question.answer - 1)
-            .addClass('fragment highlight-blue')
-            .data('fragment-index', 2);
+        var $template = $('<div />', {html:template});
 
-      slides += $template.html();
-    });
+        $template
+          .find('.tk-answer')
+            .eq(question.answer - 1)
+              .addClass('fragment highlight-blue')
+              .data('fragment-index', 2);
 
-    return slides;
-  }
+        slides += $template.html();
+      });
 
-  function _updateSlides(slides) {
-     $('.reveal .slides .js-question-set').remove();
-     $('#slide-index').after(slides);
-  }
+      return slides;
+    }
+
+    function _updateSlides(slides) {
+       $('.reveal .slides .js-question-set').remove();
+       $('#slide-index').after(slides);
+    }
+
+    function _compileTemplate(templateName, model) {
+      return $.get(templateSource[templateName])
+        .then(function(source) {
+          return Handlebars.compile(source)(model);
+        })
+        .fail(function() {
+          console.log('Fail loading template <' + templateName + '> , please make sure the template exists');
+        });
+    }
 
 
-  // /* =============================================================================
-  //  *
-  //  * [Execution Block]
-  //  * The following lines will be executed sequentially
-  //  *
-  //  * ========================================================================== */
+    // /* =============================================================================
+    //  *
+    //  * [Execution Block]
+    //  * The following lines will be executed sequentially
+    //  *
+    //  * ========================================================================== */
 
-  activate();
+    activate();
 
-})(window.jQuery, window._, window.Papa);
+  });
+})(window.jQuery, window._, window.Handlebars, window.Papa);

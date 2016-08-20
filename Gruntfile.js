@@ -35,6 +35,11 @@ module.exports = function(grunt) {
 				files: {
 					'js/app.min.js': [ 'js/app.js' ]
 				}
+			},
+			vendor: {
+				files: {
+					'js/vendor.min.js': [ 'js/vendor.js' ]
+				}
 			}
 		},
 
@@ -42,10 +47,20 @@ module.exports = function(grunt) {
 	    options: {
 	      separator: ';',
 	    },
-	    dist: {
+	    app: {
 	      src: ['js/app/index.js', 'js/app/**/*.js'],
 	      dest: 'js/app.js'
 	    },
+	    vendor: {
+	    	src: [
+	    		'lib/js/head.min.js',
+	    		'node_modules/jquery/dist/jquery.min.js',
+	    		'node_modules/lodash/lodash.min.js',
+	    		'node_modules/papaparse/papaparse.min.js',
+	    		'node_modules/handlebars/dist/handlebars.min.js'
+	    	],
+	    	dest: 'js/vendor.js'
+	    }
 		},
 
 		sass: {
@@ -109,7 +124,7 @@ module.exports = function(grunt) {
 					exports: false
 				}
 			},
-			files: [ 'Gruntfile.js', 'js/reveal.js', 'js/app.js' ]
+			files: [ 'Gruntfile.js', 'js/reveal.js', 'js/app/**/*.js' ]
 		},
 
 		connect: {
@@ -183,13 +198,16 @@ module.exports = function(grunt) {
 
 
 	// Default task
-	grunt.registerTask( 'default', [ 'css', 'js' ] );
+	grunt.registerTask( 'default', [ 'css', 'js', 'js-app', 'js-vendor' ] );
 
 	// JS task
 	grunt.registerTask( 'js', [ 'jshint', 'uglify:reveal', 'qunit' ] );
 
 	// JS App task
-	grunt.registerTask( 'js-app', [ 'jshint', 'concat', 'uglify:app' ] );
+	grunt.registerTask( 'js-app', [ 'jshint', 'concat:app', 'uglify:app' ] );
+
+	// JS vendor task
+	grunt.registerTask( 'js-vendor', [ 'concat:vendor' ] );
 
 	// Theme CSS
 	grunt.registerTask( 'css-themes', [ 'sass:themes' ] );
