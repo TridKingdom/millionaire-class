@@ -37,27 +37,15 @@
   //  *
   //  * ========================================================================== */
 
-
   // /* =============================================================================
-  //  * [Event Handler Registrations]
+  //  * [Public Functions]
   //  * ========================================================================== */
 
   function activate() {
-    _registerLoadQuestionModuleHandler();
+
   }
 
-  function _registerLoadQuestionModuleHandler() {
-    $('.js-load-question-module').on('click', function(event) {
-      var $this = $(this);
-      _loadQuestionModule($this.data('module'));
-    });
-  }
-
-  // /* =============================================================================
-  //  * [Event Handler Functions]
-  //  * ========================================================================== */
-
-  function _loadQuestionModule(moduleName) {
+  function loadQuestionModule(moduleName) {
     return _buildModule(moduleName)
       .then(function() {
         window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
@@ -155,7 +143,5 @@
   //  *
   //  * ========================================================================== */
 
-  activate();
-
+  // activate();
 })(window.jQuery, window._, window.Papa);
-;

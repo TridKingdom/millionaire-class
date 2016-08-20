@@ -158,4 +158,3 @@
   activate();
 
 })(window.jQuery, window._, window.Papa);
-;
