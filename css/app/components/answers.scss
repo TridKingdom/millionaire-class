@@ -1,0 +1,15 @@
+.tk-millionarie-class .tk-answers-container {
+  margin-top: 60px;
+
+  .tk-answer {
+    float: left;
+    width: 47.5%;
+    margin: 1.25%;
+    text-align: left;
+
+    strong {
+      margin-right: 2rem;
+      line-height: 2;
+    }
+  }
+}
