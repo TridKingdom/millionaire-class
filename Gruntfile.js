@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 		uglify: {
 			options: {
 				banner: '<%= meta.banner %>\n',
-				sourcemap: true
+				sourceMap: true
 			},
 			reveal: {
 				files: {
@@ -48,7 +48,12 @@ module.exports = function(grunt) {
 	      separator: ';',
 	    },
 	    app: {
-	      src: ['js/app/index.js', 'js/app/**/*.js'],
+	      src: [
+	      	'js/app/dataStore.js',
+	      	'js/app/templateProvider.js',
+	      	'js/app/index.js',
+	      	'js/app/**/*.js'
+	      ],
 	      dest: 'js/app.js'
 	    },
 	    vendor: {
@@ -162,6 +167,10 @@ module.exports = function(grunt) {
 			appCss: {
 				files: [ 'css/app.scss', 'css/app/**/*.scss' ],
 				tasks: 'css-app'
+			},
+			templates: {
+				files: [ 'templates/**/*.hbs' ],
+				tasks: 'js-app'
 			},
 			theme: {
 				files: [ 'css/theme/source/*.scss', 'css/theme/template/*.scss' ],

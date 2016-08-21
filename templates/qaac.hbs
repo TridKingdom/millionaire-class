@@ -1,0 +1,20 @@
+{{> slideReady }}
+
+{{#each questions as |question|}}
+<section data-transition="convex-in convex-out" class="js-question-set">
+  <section data-transition="slide-in slide-out">
+    <h3 class="fragment grow" data-fragment-index="1">{{question.question}}</h3>
+    <article class="fragment tk-answers-container clearfix" data-fragment-index="1">
+      <h3 class="tk-answer"><strong>1</strong>{{question.option1}}</h3>
+      <h3 class="tk-answer"><strong>2</strong>{{question.option2}}</h3>
+      <h3 class="tk-answer"><strong>3</strong>{{question.option3}}</h3>
+      <h3 class="tk-answer"><strong>4</strong>{{question.option4}}</h3>
+    </article>
+  </section>
+  <section data-transition="slide-in slide-out">
+    <h2 class="tk-title"><strong>{{question.answer}}</strong></h2>
+    <img class="tk-answer-img" data-src="{{question.image}}" alt=" " />
+    <p class="tk-answer-info">{{question.info}}</p>
+  </section>
+</section>
+{{/each}}
