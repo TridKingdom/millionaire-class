@@ -52,6 +52,10 @@
     .tk-millionarie-class .tk-answers-container .tk-answer strong {
       margin-right: 2rem;
       line-height: 2; }
+    .tk-millionarie-class .tk-answers-container .tk-answer.is-selected.is-true {
+      background-color: yellowgreen; }
+    .tk-millionarie-class .tk-answers-container .tk-answer.is-selected.is-false {
+      background-color: tomato; }
 
 /* Tempaltes Loading
    ========================================================================== */

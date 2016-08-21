@@ -1,0 +1,24 @@
+<section data-transition="convex-in convex-out" class="js-question-set">
+  <section data-transition="slide-in slide-out">
+    <h3 class="fragment grow" data-fragment-index="1">{{no}}. {{question}}</h3>
+    {{{question_source}}}
+    <article class="fragment tk-answers-container clearfix" data-fragment-index="1">
+      <h3 class="tk-answer"><strong>1</strong>{{option1}}</h3>
+      <h3 class="tk-answer"><strong>2</strong>{{option2}}</h3>
+      <h3 class="tk-answer"><strong>3</strong>{{option3}}</h3>
+      <h3 class="tk-answer"><strong>4</strong>{{option4}}</h3>
+    </article>
+  </section>
+  <section data-transition="slide-in slide-out">
+    <h2 class="tk-title">
+      <strong>
+        {{#ifCond answer '===' '1' }} {{answer}} {{option1}} {{/ifCond}}
+        {{#ifCond answer '===' '2' }} {{answer}} {{option2}} {{/ifCond}}
+        {{#ifCond answer '===' '3' }} {{answer}} {{option3}} {{/ifCond}}
+        {{#ifCond answer '===' '4' }} {{answer}} {{option4}} {{/ifCond}}
+      </strong>
+    </h2>
+    <img class="tk-answer-img" data-src="{{answer_source}}" alt=" " />
+    <p class="tk-answer-info">{{answer_info}}</p>
+  </section>
+</section>

@@ -10,12 +10,27 @@
 
     function activate() {
       _registerLoadQuestionModuleHandler();
+      _registerChooseAnswerHandler();
     }
 
     function _registerLoadQuestionModuleHandler() {
       $('.js-load-question-module').on('click', function(event) {
         var $this = $(this);
         _loadQuestionModule($this.data('module'));
+      });
+    }
+
+    function _registerChooseAnswerHandler() {
+      $('#tk-millionarie-class').on('click', '.js-choose-answer', function(event) {
+        var $this = $(this);
+        var selectedAnswer = $this.data('option');
+        var correctAnswer = $this.data('answer');
+
+        if (selectedAnswer === correctAnswer) {
+          $this.addClass('is-selected is-true');
+        } else {
+          $this.addClass('is-selected is-false');
+        }
       });
     }
 
@@ -66,7 +81,7 @@
     }
 
     function _compileQuestionsSlides(questions) {
-      var slides = _compileTemplate('qaac', {questions: questions});
+      var slides = _compileTemplate('moduleBasic', {questions: questions});
       $('.reveal .slides .js-question-set').remove();
       $('#slide-index').after(slides);
     }
@@ -75,15 +90,6 @@
       return Handlebars.compile(tkDataStore.templateSources[templateName].template)(model);
     }
 
-
-    /* =========================================================================
-     *
-     * [utilock]
-     * The follg lines will be executed sequentially
-     *
-     * ====================================================================== */
-
     activate();
-
   });
 })(window.jQuery, window._, window.Handlebars, window.Papa, window.tkDataStore);
