@@ -18,7 +18,7 @@
         {{#ifCond answer '===' '4' }} {{answer}} {{option4}} {{/ifCond}}
       </strong>
     </h2>
-    <img class="tk-answer-img" data-src="{{answer_source}}" alt=" " />
-    <p class="tk-answer-info">{{answer_info}}</p>
+    {{#if answer_source}}<img class="tk-answer-img" data-src="{{answer_source}}" alt="{{answer_source}}" />{{/if}}
+    {{#if answer_info}}<p class="tk-answer-info">{{answer_info}}</p>{{/if}}
   </section>
 </section>

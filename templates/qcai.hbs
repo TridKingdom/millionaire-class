@@ -24,7 +24,7 @@
     <h2 class="tk-title">
       <strong>{{answer}}</strong>
     </h2>
-    <img class="tk-answer-img" data-src="{{answer_source}}" alt="{{answer_info}}" />
-    <p class="tk-answer-info">{{answer_info}}</p>
+    {{#if answer_source}}<img class="tk-answer-img" data-src="{{answer_source}}" alt="{{answer_source}}" />{{/if}}
+    {{#if answer_info}}<p class="tk-answer-info">{{answer_info}}</p>{{/if}}
   </section>
 </section>
