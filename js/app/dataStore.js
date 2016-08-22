@@ -19,4 +19,9 @@
     advanced: {},
   };
 
+  tkDataStore.decisionText = {
+    yes: '你真了不起',
+    no: '再接再厲吧',
+  };
+
 })(window._);

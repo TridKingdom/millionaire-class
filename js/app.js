@@ -19,6 +19,11 @@
     advanced: {},
   };
 
+  tkDataStore.decisionText = {
+    yes: '你真了不起',
+    no: '再接再厲吧',
+  };
+
 })(window._);;(function($, _, Handlebars) {
   'use strict';
 
@@ -112,6 +117,7 @@
     function activate() {
       _registerLoadQuestionModuleHandler();
       _registerChooseAnswerHandler();
+      _registerMakeDecisionHandler();
     }
 
     function _registerLoadQuestionModuleHandler() {
@@ -132,6 +138,18 @@
         } else {
           $this.addClass('is-selected is-false');
         }
+      });
+    }
+
+    function _registerMakeDecisionHandler() {
+      $('#tk-millionarie-class').on('click', '.js-decision-option', function(event) {
+        var $this = $(this);
+        var $title = $this.closest('.js-question-set').find('.js-decision-title');
+        var decision = $this.data('decision');
+        var optionText = $this.data('option') || tkDataStore.decisionText[decision];
+
+        $title.text(optionText);
+        $this.siblings('.js-decision-option').hide();
       });
     }
 
