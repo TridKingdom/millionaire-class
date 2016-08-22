@@ -11,6 +11,7 @@
 /* Components Loading
    ========================================================================== */
 @import 'app/components/logo';
+@import 'app/components/title';
 @import 'app/components/questions';
 @import 'app/components/answers';
 
@@ -22,6 +23,7 @@
 @import 'app/templates/global/slide-ready';
 @import 'app/templates/global/slide-ending';
 
+@import 'app/templates/global/slide-question';
 @import 'app/templates/global/slide-detail';
 @import 'app/templates/global/slide-interactions';
 

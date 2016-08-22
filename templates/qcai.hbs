@@ -1,30 +1,38 @@
-<section data-transition="convex-in convex-out" class="js-question-set">
-  <section data-transition="slide-in slide-out">
-    <h3 class="fragment grow" data-fragment-index="1">{{no}}. {{question}}</h3>
-    <article class="fragment tk-answers-container clearfix" data-fragment-index="1">
-      <h3 class="tk-answer">
-        <strong>1</strong>
-        <img class="tk-answer-img" data-src="{{option1}}" alt="{{option1}}" />
+<section data-transition="convex-in convex-out" class="tk-type-qcai js-question-set">
+  <section data-transition="slide-in slide-out" class="tk-slide-question">
+    <h2 class="tk-title tk-title--question"><strong class="tk-title__no">{{no}}.</strong> {{question}}</h2>
+    <div class="tk-slide-question__iframe">{{{question_source}}}</div>
+    <article class="fragment tk-answers clearfix" data-fragment-index="1">
+      <h3 class="tk-answers__answer tk-answers__answer--has-image js-choose-answer" data-option="1" data-answer="{{answer}}">
+        {{!-- <strong class="tk-answers__no">1</strong> --}}
+        <img class="tk-answers__img" data-src="{{option1}}" alt="{{option1}}" />
       </h3>
-      <h3 class="tk-answer">
-        <strong>2</strong>
-        <img class="tk-answer-img" data-src="{{option2}}" alt="{{option2}}" />
+      <h3 class="tk-answers__answer tk-answers__answer--has-image js-choose-answer" data-option="2" data-answer="{{answer}}">
+        {{!-- <strong class="tk-answers__no">2</strong> --}}
+        <img class="tk-answers__img" data-src="{{option2}}" alt="{{option1}}" />
       </h3>
-      <h3 class="tk-answer">
-        <strong>3</strong>
-        <img class="tk-answer-img" data-src="{{option3}}" alt="{{option3}}" />
+      <h3 class="tk-answers__answer tk-answers__answer--has-image js-choose-answer" data-option="3" data-answer="{{answer}}">
+        {{!-- <strong class="tk-answers__no">3</strong> --}}
+        <img class="tk-answers__img" data-src="{{option3}}" alt="{{option1}}" />
       </h3>
-      <h3 class="tk-answer">
-        <strong>4</strong>
-        <img class="tk-answer-img" data-src="{{option4}}" alt="{{option4}}" />
+      <h3 class="tk-answers__answer tk-answers__answer--has-image js-choose-answer" data-option="4" data-answer="{{answer}}">
+        {{!-- <strong class="tk-answers__no">4</strong> --}}
+        <img class="tk-answers__img" data-src="{{option4}}" alt="{{option1}}" />
       </h3>
     </article>
   </section>
-  <section data-transition="slide-in slide-out">
-    <h2 class="tk-title">
+  <section data-transition="slide-in slide-out" class="tk-slide-detail">
+    <h2 class="tk-title tk-title--answer">
       <strong>{{answer}}</strong>
     </h2>
-    {{#if answer_source}}<img class="tk-answer-img" data-src="{{answer_source}}" alt="{{answer_source}}" />{{/if}}
-    {{#if answer_info}}<p class="tk-answer-info">{{answer_info}}</p>{{/if}}
+    {{#if answer_source}}
+      <img class="tk-slide-detail__img" data-src="{{answer_source}}" alt="{{answer_source}}" />
+    {{else}}
+      {{#ifCond answer '===' '1' }} <img class="tk-slide-detail__img" data-src="{{option1}}" alt="{{option1}}" /> {{/ifCond}}
+      {{#ifCond answer '===' '2' }} <img class="tk-slide-detail__img" data-src="{{option2}}" alt="{{option2}}" /> {{/ifCond}}
+      {{#ifCond answer '===' '3' }} <img class="tk-slide-detail__img" data-src="{{option3}}" alt="{{option3}}" /> {{/ifCond}}
+      {{#ifCond answer '===' '4' }} <img class="tk-slide-detail__img" data-src="{{option4}}" alt="{{option4}}" /> {{/ifCond}}
+    {{/if}}
+    {{#if answer_info}}<p class="tk-slide-detail__info">{{answer_info}}</p>{{/if}}
   </section>
 </section>
