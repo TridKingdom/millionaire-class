@@ -1,0 +1,10 @@
+<section data-transition="slide-in slide-out" class="tk-slide-question">
+  <h2 class="tk-title tk-title--question"><strong class="tk-title__no">{{no}}.</strong> {{question}}</h2>
+
+  {{#if question_source }}
+    {{#ifCond type '===' 'qian'}}<img class="tk-slide-question__img" data-src="{{question_source}}" alt="{{question}}" />{{/ifCond}}
+    {{#ifCond type '===' 'qvan'}}<div class="tk-slide-question__iframe">{{{question_source}}}</div>{{/ifCond}}
+    {{#ifCond type '===' 'qaan'}}<div class="tk-slide-question__iframe">{{{question_source}}}</div>{{/ifCond}}
+  {{/if}}
+
+</section>

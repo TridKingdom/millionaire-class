@@ -11,7 +11,8 @@
       slideReady: {id: 'slideReady', path: 'templates/slide-ready.hbs', template: '', partial: true},
       slideScoreList: {id: 'slideScoreList', path: 'templates/slide-score-list.hbs', template: '', partial: true},
 
-      slideQuestion: {id: 'slideQuestion', path: 'templates/slide-question.hbs', template: '', partial: true},
+      slideQuestionBasic: {id: 'slideQuestionBasic', path: 'templates/slide-question-basic.hbs', template: '', partial: true},
+      slideQuestionAdvanced: {id: 'slideQuestionAdvanced', path: 'templates/slide-question-advanced.hbs', template: '', partial: true},
       slideDetail: {id: 'slideDetail', path: 'templates/slide-detail.hbs', template: '', partial: true},
       slideDecision: {id: 'slideDecision', path: 'templates/slide-decision.hbs', template: '', partial: true},
       slideYes: {id: 'slideYes', path: 'templates/slide-yes.hbs', template: '', partial: true},
