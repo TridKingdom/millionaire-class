@@ -1,5 +1,4 @@
 (function($, _, Handlebars, Papa, tkDataStore) {
-
   'use strict';
 
   $(function() {
@@ -77,11 +76,15 @@
 
     function _parseQuestionModule(module) {
       tkDataStore.questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
-      return tkDataStore.questionModules[module.name];
+      return {
+        name: module.name,
+        questions: tkDataStore.questionModules[module.name]
+      };
     }
 
-    function _compileQuestionsSlides(questions) {
-      var slides = _compileTemplate('moduleBasic', {questions: questions});
+    function _compileQuestionsSlides(module) {
+      var moduleTemplateName = 'module' + _.capitalize(module.name);
+      var slides = _compileTemplate(moduleTemplateName, {questions: module.questions});
       $('.reveal .slides .js-question-set').remove();
       $('#slide-index').after(slides);
     }

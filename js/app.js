@@ -5,21 +5,18 @@
 
   tkDataStore.csvSource = {
     local: {
-      'basic': 'data/basic.csv',
-      'taiwan': 'data/taiwan.csv',
-      'world': 'data/world.csv',
+      basic: 'data/basic.csv',
+      advanced: 'data/advanced.csv',
     },
     drive: {
-      'basic': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
-      'taiwan': 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
-      'world': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
+      basic: 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
+      advanced: 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
     }
   };
 
   tkDataStore.questionModules = {
     basic: {},
-    taiwan: {},
-    world: {},
+    advanced: {},
   };
 
 })(window._);;(function($, _, Handlebars) {
@@ -97,7 +94,6 @@
 
   });
 })(window.jQuery, window._, window.Handlebars);;(function($, _, Handlebars, Papa, tkDataStore) {
-
   'use strict';
 
   $(function() {
@@ -175,11 +171,15 @@
 
     function _parseQuestionModule(module) {
       tkDataStore.questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
-      return tkDataStore.questionModules[module.name];
+      return {
+        name: module.name,
+        questions: tkDataStore.questionModules[module.name]
+      };
     }
 
-    function _compileQuestionsSlides(questions) {
-      var slides = _compileTemplate('moduleBasic', {questions: questions});
+    function _compileQuestionsSlides(module) {
+      var moduleTemplateName = 'module' + _.capitalize(module.name);
+      var slides = _compileTemplate(moduleTemplateName, {questions: module.questions});
       $('.reveal .slides .js-question-set').remove();
       $('#slide-index').after(slides);
     }

@@ -1,1 +1,32 @@
-<h2>qvan</h2>
+<section data-transition="convex-in convex-out" class="tk-type-qvan js-question-set">
+  <section data-transition="slide-in slide-out" class="tk-slide-question">
+    <h2 class="tk-title tk-title--question"><strong class="tk-title__no">{{no}}.</strong> {{question}}</h2>
+    <div class="tk-slide-question__iframe">{{{question_source}}}</div>
+    <article class="fragment tk-answers clearfix" data-fragment-index="1">
+      <h3 class="tk-answers__answer js-choose-answer" data-option="1" data-answer="{{answer}}">
+        <strong class="tk-answers__no">1</strong> {{option1}}
+      </h3>
+      <h3 class="tk-answers__answer js-choose-answer" data-option="2" data-answer="{{answer}}">
+        <strong class="tk-answers__no">2</strong> {{option2}}
+      </h3>
+      <h3 class="tk-answers__answer js-choose-answer" data-option="3" data-answer="{{answer}}">
+        <strong class="tk-answers__no">3</strong> {{option3}}
+      </h3>
+      <h3 class="tk-answers__answer js-choose-answer" data-option="4" data-answer="{{answer}}">
+        <strong class="tk-answers__no">4</strong> {{option4}}
+      </h3>
+    </article>
+  </section>
+  <section data-transition="slide-in slide-out" class="tk-slide-detail">
+    <h2 class="tk-title tk-title--answer">
+      <strong>
+        {{#ifCond answer '===' '1' }} {{answer}} {{option1}} {{/ifCond}}
+        {{#ifCond answer '===' '2' }} {{answer}} {{option2}} {{/ifCond}}
+        {{#ifCond answer '===' '3' }} {{answer}} {{option3}} {{/ifCond}}
+        {{#ifCond answer '===' '4' }} {{answer}} {{option4}} {{/ifCond}}
+      </strong>
+    </h2>
+    {{#if answer_source}}<img class="tk-slide-detail__img" data-src="{{answer_source}}" alt="{{answer_source}}" />{{/if}}
+    {{#if answer_info}}<p class="tk-slide-detail__info">{{answer_info}}</p>{{/if}}
+  </section>
+</section>
