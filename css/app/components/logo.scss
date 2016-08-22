@@ -1,0 +1,8 @@
+.tk-millionarie-class .tk-logo {
+  border: 0;
+  border-radius: 50%;
+  background-color: #eee8d5;
+
+  &.tk-logo--sm { width: 10%; }
+  &.tk-logo--lg { width: 20%; }
+}

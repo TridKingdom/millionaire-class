@@ -1,0 +1,8 @@
+{{> slideReady }}
+
+{{#each questions as |question| }}
+  {{#ifCond question.type '===' 'qaan' }} {{> qaan question }} {{/ifCond}}
+  {{#ifCond question.type '===' 'qcan' }} {{> qcan question }} {{/ifCond}}
+  {{#ifCond question.type '===' 'qian' }} {{> qian question }} {{/ifCond}}
+  {{#ifCond question.type '===' 'qvan' }} {{> qvan question }} {{/ifCond}}
+{{/each}}

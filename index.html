@@ -32,8 +32,7 @@
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
 		<!-- Customized css -->
-		<link rel="stylesheet" href="css/utils.css">
-		<link rel="stylesheet" href="css/app.css">
+		<link rel="stylesheet" href="css/app.min.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -44,7 +43,7 @@
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 	</head>
-	<body>
+	<body id="tk-millionarie-class" class="tk-millionarie-class">
 		<div class="reveal">
 			<div class="slides">
 				<section id="slide-starting" data-transition="convex-in convex-out" >
@@ -55,9 +54,8 @@
 					<ul>
 						<h2>百萬小學堂 ○ 目錄</h2>
 						<br>
-						<h6 class="tk-option"><a href="javascript:void(0)" onClick="loadQuestionModule('basic');">基本篇</a></h6>
-						<h6 class="tk-option"><a href="javascript:void(0)" onClick="loadQuestionModule('taiwan');">台灣篇</a></h6>
-						<h6 class="tk-option"><a href="javascript:void(0)" onClick="loadQuestionModule('world');">世界篇</a></h6>
+						<h6 class="tk-option"><a href="javascript:void(0)" class="js-load-question-module" data-module="basic">世界基本題</a></h6>
+						<h6 class="tk-option"><a href="javascript:void(0)" class="js-load-question-module" data-module="advanced">多元挑戰題</a></h6>
 					</ul>
 				</section>
 				<section id="slide-ending" data-transition="convex-in convex-out" >
@@ -68,18 +66,10 @@
 			</div>
 		</div>
 
-
 		<!-- Javascript resources -->
-		<script src="lib/js/jquery.min.js"></script>
-		<script src="lib/js/lodash.min.js"></script>
-		<script src="lib/js/babyparse.min.js"></script>
-		<script src="lib/js/head.min.js"></script>
+		<script src="js/vendor.js"></script>
 		<script src="js/reveal.js"></script>
-
-		<script src="js/config.js"></script>
-		<script src="js/app.js"></script>
-		<script>
-
-		</script>
+		<script src="js/reveal-config.js"></script>
+		<script src="js/app.min.js"></script>
 	</body>
 </html>

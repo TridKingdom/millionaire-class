@@ -23,18 +23,60 @@ module.exports = function(grunt) {
 
 		uglify: {
 			options: {
-				banner: '<%= meta.banner %>\n'
+				banner: '<%= meta.banner %>\n',
+				sourceMap: true
 			},
-			build: {
-				src: 'js/reveal.js',
-				dest: 'js/reveal.min.js'
+			reveal: {
+				files: {
+					'js/reveal.min.js': [ 'js/reveal.js' ]
+				}
+			},
+			app: {
+				files: {
+					'js/app.min.js': [ 'js/app.js' ]
+				}
+			},
+			vendor: {
+				files: {
+					'js/vendor.min.js': [ 'js/vendor.js' ]
+				}
 			}
+		},
+
+		concat: {
+	    options: {
+	      separator: ';',
+	    },
+	    app: {
+	      src: [
+	      	'js/app/dataStore.js',
+	      	'js/app/templateProvider.js',
+	      	'js/app/index.js',
+	      	'js/app/**/*.js'
+	      ],
+	      dest: 'js/app.js'
+	    },
+	    vendor: {
+	    	src: [
+	    		'lib/js/head.min.js',
+	    		'node_modules/jquery/dist/jquery.min.js',
+	    		'node_modules/lodash/lodash.min.js',
+	    		'node_modules/papaparse/papaparse.min.js',
+	    		'node_modules/handlebars/dist/handlebars.min.js'
+	    	],
+	    	dest: 'js/vendor.js'
+	    }
 		},
 
 		sass: {
 			core: {
 				files: {
 					'css/reveal.css': 'css/reveal.scss',
+				}
+			},
+			app: {
+				files: {
+					'css/app.css': 'css/app.scss',
 				}
 			},
 			themes: {
@@ -52,14 +94,15 @@ module.exports = function(grunt) {
 
 		autoprefixer: {
 			dist: {
-				src: 'css/reveal.css'
+				src: ['css/reveal.css', 'css/app.css']
 			}
 		},
 
 		cssmin: {
 			compress: {
 				files: {
-					'css/reveal.min.css': [ 'css/reveal.css' ]
+					'css/reveal.min.css': [ 'css/reveal.css' ],
+					'css/app.min.css': [ 'css/app.css' ]
 				}
 			}
 		},
@@ -86,7 +129,7 @@ module.exports = function(grunt) {
 					exports: false
 				}
 			},
-			files: [ 'Gruntfile.js', 'js/reveal.js' ]
+			files: [ 'Gruntfile.js', 'js/reveal.js', 'js/app/**/*.js' ]
 		},
 
 		connect: {
@@ -117,6 +160,18 @@ module.exports = function(grunt) {
 				files: [ 'Gruntfile.js', 'js/reveal.js' ],
 				tasks: 'js'
 			},
+			appJs: {
+				files: [ 'js/app/**/*.js' ],
+				tasks: 'js-app'
+			},
+			appCss: {
+				files: [ 'css/app.scss', 'css/app/**/*.scss' ],
+				tasks: 'css-app'
+			},
+			templates: {
+				files: [ 'templates/**/*.hbs' ],
+				tasks: 'js-app'
+			},
 			theme: {
 				files: [ 'css/theme/source/*.scss', 'css/theme/template/*.scss' ],
 				tasks: 'css-themes'
@@ -126,7 +181,7 @@ module.exports = function(grunt) {
 				tasks: 'css-core'
 			},
 			html: {
-				files: [ '*.html']
+				files: [ '*.html' ]
 			},
 			markdown: {
 				files: [ '*.md' ]
@@ -143,23 +198,34 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-autoprefixer' );
 	grunt.loadNpmTasks( 'grunt-zip' );
 
+
 	// Default task
-	grunt.registerTask( 'default', [ 'css', 'js' ] );
+	grunt.registerTask( 'default', [ 'css', 'js', 'js-app', 'js-vendor' ] );
 
 	// JS task
-	grunt.registerTask( 'js', [ 'jshint', 'uglify', 'qunit' ] );
+	grunt.registerTask( 'js', [ 'jshint', 'uglify:reveal', 'qunit' ] );
+
+	// JS App task
+	grunt.registerTask( 'js-app', [ 'jshint', 'concat:app', 'uglify:app' ] );
+
+	// JS vendor task
+	grunt.registerTask( 'js-vendor', [ 'concat:vendor' ] );
 
 	// Theme CSS
 	grunt.registerTask( 'css-themes', [ 'sass:themes' ] );
 
 	// Core framework CSS
 	grunt.registerTask( 'css-core', [ 'sass:core', 'autoprefixer', 'cssmin' ] );
+
+	// CSS App task
+	grunt.registerTask( 'css-app', [ 'sass:app', 'autoprefixer', 'cssmin' ] );
 
 	// All CSS
 	grunt.registerTask( 'css', [ 'sass', 'autoprefixer', 'cssmin' ] );
