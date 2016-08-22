@@ -1,52 +1,85 @@
-.reveal .tk-logo {
+/* ==========================================================================
+   Millionaire-Class Application Styles
+   ========================================================================== */
+/* Modules Loading
+   ========================================================================== */
+/* ==========================================================================
+   Millionaire-Class Predefined Style Variables
+   ========================================================================== */
+/* 1. Colors
+   ========================================================================== */
+/* 2. Fonts
+   ========================================================================== */
+/* 3. Vertical Rythms
+   ========================================================================== */
+/* ==========================================================================
+   General Utility Classes for millionaire-class
+   ========================================================================== */
+/* Helper Class
+   ========================================================================== */
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
+
+/* Mixins
+   ========================================================================== */
+/* Components Loading
+   ========================================================================== */
+.tk-millionarie-class .tk-logo {
   border: 0;
   border-radius: 50%;
-  background-color: #eee8d5;
-}
+  background-color: #eee8d5; }
+  .tk-millionarie-class .tk-logo.tk-logo--sm {
+    width: 10%; }
+  .tk-millionarie-class .tk-logo.tk-logo--lg {
+    width: 20%; }
 
-.reveal .tk-logo.tk-logo--sm {
-  width: 10%;
-}
+.tk-millionarie-class .tk-title {
+  font-size: 1.1em;
+  line-height: 1.6; }
+  .tk-millionarie-class .tk-title__no {
+    margin-right: 1rem; }
 
-.reveal .tk-logo.tk-logo--lg {
-  width: 20%;
-}
-
-.reveal .tk-option {
-  text-align: center;
-  margin: 1rem 0;
-}
-
-.reveal .tk-answers-container {
-  margin-top: 60px;
-}
-
-.reveal .tk-answers-container .tk-answer {
+.tk-millionarie-class .tk-answers .tk-answers__answer {
   float: left;
   width: 47.5%;
-  margin: 1.25%;
-  text-align: left;
-}
+  margin: .2em 1.25%;
+  padding: .3em 0;
+  text-align: center;
+  font-size: 1.2em;
+  cursor: pointer; }
+  .tk-millionarie-class .tk-answers .tk-answers__answer.is-selected.is-true {
+    background-color: yellowgreen; }
+  .tk-millionarie-class .tk-answers .tk-answers__answer.is-selected.is-false {
+    background-color: tomato; }
+  .tk-millionarie-class .tk-answers .tk-answers__answer.tk-answers__answer--has-image .tk-answers__img {
+    max-height: 18vh;
+    border: 0;
+    background-color: transparent; }
 
-.reveal .tk-answers-container .tk-answer strong {
-  margin-right: 2rem;
-  line-height: 2;
-}
+/* Tempaltes Loading
+   ========================================================================== */
+#slide-index .tk-option {
+  text-align: center;
+  margin: 1rem 0; }
 
-.reveal .tk-title {
+.tk-millionarie-class .tk-slide-question .tk-slide-question__img {
+  max-height: 40vh; }
 
-}
+.tk-millionarie-class .tk-slide-question .tk-slide-question__iframe {
+  max-height: 40vh; }
+  .tk-millionarie-class .tk-slide-question .tk-slide-question__iframe iframe {
+    height: 100%; }
 
-.reveal .tk-title strong {
-  margin-right: 2rem;
-  line-height: 2;
-}
+.tk-millionarie-class .tk-slide-detail .tk-slide-detail__img {
+  max-height: 40vh; }
 
+.tk-millionarie-class .tk-slide-detail .tk-slide-detail__info {
+  font-size: .9em; }
 
-.reveal .tk-answers-container .tk-answer-img {
-
-}
-
-.reveal .tk-answers-container .tk-answer-info {
-
-}
+/* Custom Overwriting Loading
+   ========================================================================== */
