@@ -61,6 +61,26 @@
     border: 0;
     background-color: transparent; }
 
+.tk-millionarie-class .tk-cube {
+  width: 40vh;
+  height: 40vh;
+  line-height: 40vh;
+  margin: .1em;
+  font-size: 7em;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 10%;
+  -webkit-transition: all .2s ease-in;
+          transition: all .2s ease-in; }
+  .tk-millionarie-class .tk-cube--yes {
+    background-color: yellowgreen; }
+    .tk-millionarie-class .tk-cube--yes:hover {
+      background-color: #7ba428; }
+  .tk-millionarie-class .tk-cube--no {
+    background-color: tomato; }
+    .tk-millionarie-class .tk-cube--no:hover {
+      background-color: #ff3814; }
+
 /* Tempaltes Loading
    ========================================================================== */
 #slide-index .tk-option {
@@ -80,6 +100,13 @@
 
 .tk-millionarie-class .tk-slide-detail .tk-slide-detail__info {
   font-size: .9em; }
+
+.tk-millionarie-class .slide-decision .tk-cubes-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around; }
 
 /* Custom Overwriting Loading
    ========================================================================== */
