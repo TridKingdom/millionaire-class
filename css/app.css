@@ -90,6 +90,7 @@
   position: absolute;
   bottom: 3%;
   left: 2%;
+  z-index: 999;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
