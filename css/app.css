@@ -61,6 +61,56 @@
     border: 0;
     background-color: transparent; }
 
+.tk-millionarie-class .tk-cube {
+  width: 40vh;
+  height: 40vh;
+  line-height: 40vh;
+  margin: .1em;
+  font-size: 7em;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 10%;
+  -webkit-transition: all .2s ease-in;
+          transition: all .2s ease-in; }
+  .tk-millionarie-class .tk-cube--yes {
+    background-color: yellowgreen; }
+    .tk-millionarie-class .tk-cube--yes:hover {
+      background-color: #7ba428; }
+  .tk-millionarie-class .tk-cube--no {
+    background-color: tomato; }
+    .tk-millionarie-class .tk-cube--no:hover {
+      background-color: #ff3814; }
+
+.tk-millionarie-class .tk-slides-header {
+  position: absolute;
+  top: 0;
+  left: -20%; }
+
+.tk-millionarie-class .tk-slides-footer {
+  position: absolute;
+  bottom: 3%;
+  left: 2%;
+  z-index: 999;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start; }
+  .tk-millionarie-class .tk-slides-footer .tk-icon-link {
+    margin-right: .4em;
+    text-align: left; }
+    .tk-millionarie-class .tk-slides-footer .tk-icon-link .tk-icon-link__img {
+      max-width: 80px; }
+    .tk-millionarie-class .tk-slides-footer .tk-icon-link:hover .tk-icon-link__img {
+      background-color: transparent;
+      box-shadow: 0 0 transparent; }
+    .tk-millionarie-class .tk-slides-footer .tk-icon-link.tk-icon-link--advanced-menu {
+      display: none; }
+
+.tk-millionarie-class.module-advanced .tk-slides-footer .tk-icon-link.tk-icon-link--advanced-menu {
+  display: block; }
+
 /* Tempaltes Loading
    ========================================================================== */
 #slide-index .tk-option {
@@ -80,6 +130,84 @@
 
 .tk-millionarie-class .tk-slide-detail .tk-slide-detail__info {
   font-size: .9em; }
+
+#slide-score-list .tk-score-list-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-line-pack: justify;
+      align-content: space-between;
+  margin-left: 0;
+  list-style: none; }
+  #slide-score-list .tk-score-list-container .tk-score-list-item {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 4em;
+            flex: 1 1 4em;
+    height: 10vh;
+    margin: .2em;
+    border-radius: 10%;
+    background-color: yellowgreen;
+    text-align: center;
+    line-height: 2;
+    color: #ffffff;
+    -webkit-transition: all .2s ease-in;
+            transition: all .2s ease-in; }
+    #slide-score-list .tk-score-list-container .tk-score-list-item a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: #f2f2f2;
+      -webkit-transition: all .2s ease-in;
+              transition: all .2s ease-in; }
+    #slide-score-list .tk-score-list-container .tk-score-list-item:hover a {
+      color: #ffffff;
+      -webkit-transform: scale(1.2);
+              transform: scale(1.2); }
+    #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-20 {
+      background-color: #a9ddd9; }
+      #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-20:hover {
+        background-color: #72c7c1; }
+    #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-40 {
+      background-color: yellowgreen; }
+      #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-40:hover {
+        background-color: #6c9023; }
+    #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-60 {
+      background-color: #23b5af; }
+      #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-60:hover {
+        background-color: #177571; }
+    #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-80 {
+      background-color: orange; }
+      #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-80:hover {
+        background-color: #b37400; }
+    #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-100 {
+      background-color: tomato; }
+      #slide-score-list .tk-score-list-container .tk-score-list-item.tk-score-list-item-100:hover {
+        background-color: #fa2600; }
+    #slide-score-list .tk-score-list-container .tk-score-list-item.disabled {
+      cursor: not-allowed;
+      background-color: #cccccc; }
+      #slide-score-list .tk-score-list-container .tk-score-list-item.disabled:hover {
+        background-color: #cccccc; }
+        #slide-score-list .tk-score-list-container .tk-score-list-item.disabled:hover a {
+          -webkit-transform: scale(1);
+                  transform: scale(1); }
+      #slide-score-list .tk-score-list-container .tk-score-list-item.disabled a {
+        color: #888888;
+        pointer-events: none; }
+        #slide-score-list .tk-score-list-container .tk-score-list-item.disabled a:hover {
+          color: #888888; }
+
+.tk-millionarie-class .slide-decision .tk-cubes-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around; }
 
 /* Custom Overwriting Loading
    ========================================================================== */

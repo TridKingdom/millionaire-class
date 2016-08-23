@@ -9,6 +9,12 @@
       moduleAdvanced: {id: 'moduleAdvanced', path: 'templates/module-advanced.hbs', template: '', partial: false},
 
       slideReady: {id: 'slideReady', path: 'templates/slide-ready.hbs', template: '', partial: true},
+      slideScoreList: {id: 'slideScoreList', path: 'templates/slide-score-list.hbs', template: '', partial: true},
+
+      slideQuestionBasic: {id: 'slideQuestionBasic', path: 'templates/slide-question-basic.hbs', template: '', partial: true},
+      slideQuestionAdvanced: {id: 'slideQuestionAdvanced', path: 'templates/slide-question-advanced.hbs', template: '', partial: true},
+      slideDetail: {id: 'slideDetail', path: 'templates/slide-detail.hbs', template: '', partial: true},
+      slideDecision: {id: 'slideDecision', path: 'templates/slide-decision.hbs', template: '', partial: true},
 
       qcac: {id: 'qcac', path: 'templates/qcac.hbs', template: '', partial: true},
       qiac: {id: 'qiac', path: 'templates/qiac.hbs', template: '', partial: true},

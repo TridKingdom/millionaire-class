@@ -1,4 +1,5 @@
 {{> slideReady }}
+{{> slideScoreList }}
 
 {{#each questions as |question| }}
   {{#ifCond question.type '===' 'qaan' }} {{> qaan question }} {{/ifCond}}
