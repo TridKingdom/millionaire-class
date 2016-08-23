@@ -14,7 +14,13 @@
   height: 0;
 }
 
+.is-hidden {
+  display: none !important;
+}
 
+.is-shown {
+  display: block;
+}
 
 /* Mixins
    ========================================================================== */

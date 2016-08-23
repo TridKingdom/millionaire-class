@@ -1,6 +1,29 @@
 #slide-index {
-  .tk-option {
-    text-align: center;
-    margin: 1rem 0;
+
+  .tk-slide-title {
+    transition: all .2s ease-in;
+  }
+
+  .tk-index-box {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-content: space-around;
+    margin-left: 0;
+    list-style: none;
+
+    .tk-index-box__option {
+      flex: 1 1 20vw;
+      margin: .4em 0;
+
+      > a {
+
+      }
+    }
+  }
+
+  .tk-loading-container {
+    display: flex;
+    justify-content: center;
   }
 }

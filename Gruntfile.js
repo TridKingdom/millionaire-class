@@ -62,7 +62,8 @@ module.exports = function(grunt) {
 	    		'node_modules/jquery/dist/jquery.min.js',
 	    		'node_modules/lodash/lodash.min.js',
 	    		'node_modules/papaparse/papaparse.min.js',
-	    		'node_modules/handlebars/dist/handlebars.min.js'
+	    		'node_modules/handlebars/dist/handlebars.min.js',
+	    		'node_modules/tabletop/src/tabletop.js'
 	    	],
 	    	dest: 'js/vendor.js'
 	    }
