@@ -3,14 +3,18 @@
 
   var tkDataStore = window.tkDataStore = window.tkDataStore || {};
 
-  tkDataStore.csvSource = {
+  tkDataStore.moduelSource = {
     local: {
       basic: 'data/basic.csv',
       advanced: 'data/advanced.csv',
     },
-    drive: {
-      basic: 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
-      advanced: 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
+    cloud: {
+      basic: '19gKrd4RpiU7evbYe-Bb8XJ18B7yzaD_ZqHlOFEMFu04',
+      advanced: '1HnqeQtNhuqWvEJau5VINIn4DhivCSvLD5C3w4dLz5TA',
+    },
+    download: {
+      basic: 'https://docs.google.com/spreadsheets/d/19gKrd4RpiU7evbYe-Bb8XJ18B7yzaD_ZqHlOFEMFu04/pub?gid=0&single=true&output=csv',
+      advanced: 'https://docs.google.com/spreadsheets/d/1HnqeQtNhuqWvEJau5VINIn4DhivCSvLD5C3w4dLz5TA/pub?gid=0&single=true&output=csv',
     }
   };
 
@@ -22,6 +26,13 @@
   tkDataStore.decisionText = {
     yes: '你真了不起',
     no: '再接再厲吧',
+  };
+
+  tkDataStore.config = {
+    title: '',
+    source: 'cloud',
+    player: '1',
+    timer: 60,
   };
 
 })(window._);;(function($, _, Handlebars) {
@@ -104,7 +115,7 @@
     activate();
 
   });
-})(window.jQuery, window._, window.Handlebars);;(function($, _, Handlebars, Papa, tkDataStore) {
+})(window.jQuery, window._, window.Handlebars);;(function($, _, Handlebars, Papa, Tabletop, tkDataStore) {
   'use strict';
 
   $(function() {
@@ -169,7 +180,7 @@
           window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
         })
         .fail(function() {
-          window.location.href = window.location.origin + window.location.pathname;
+          window.location.href = window.location.origin + window.location.pathname + '#slide-index';
           console.warn('Fail loading question module <' + moduleName + '> , please try another one');
         });
     }
@@ -179,14 +190,19 @@
      * ====================================================================== */
 
     function _buildModule(moduleName) {
-      return _fetchQuestionModule(moduleName)
-        .then(_parseQuestionModule)
-        .then(_compileQuestionsSlides);
+      if (tkDataStore.config.source === 'cloud') {
+        return _fetchCloudQuestionModule(moduleName)
+            .then(_compileQuestionsSlides);
+      } else  {
+        return _fetchLocalQuestionModule(moduleName)
+          .then(_parseCsvQuestionModule)
+          .then(_compileQuestionsSlides);
+      }
     }
 
-    function _fetchQuestionModule(moduleName) {
+    function _fetchLocalQuestionModule(moduleName) {
       return $.ajax({
-        url: tkDataStore.csvSource.local[moduleName],
+        url: tkDataStore.moduelSource.local[moduleName],
         type: 'GET',
       })
       .then(function(csvString) {
@@ -200,12 +216,33 @@
       });
     }
 
-    function _parseQuestionModule(module) {
-      tkDataStore.questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
+    function _parseCsvQuestionModule(module) {
+      tkDataStore.questionModules[module.name] = Papa.parse(module.csv, {header: true, dynamicTyping: true}).data;
+
       return {
         name: module.name,
         questions: tkDataStore.questionModules[module.name]
       };
+    }
+
+    function _fetchCloudQuestionModule(moduleName) {
+      var deferred = $.Deferred();
+
+      Tabletop.init({
+        key: tkDataStore.moduelSource.cloud[moduleName],
+        callback: function(data, tabletop) {
+          tkDataStore.questionModules[moduleName] = data;
+          console.log(data);
+          deferred.resolve({
+            name: moduleName,
+            questions: tkDataStore.questionModules[moduleName]
+          });
+        },
+        simpleSheet: true,
+        parseNumbers: true
+      });
+
+      return deferred.promise();
     }
 
     function _compileQuestionsSlides(module) {
@@ -231,4 +268,4 @@
 
     activate();
   });
-})(window.jQuery, window._, window.Handlebars, window.Papa, window.tkDataStore);
+})(window.jQuery, window._, window.Handlebars, window.Papa, window.Tabletop, window.tkDataStore);

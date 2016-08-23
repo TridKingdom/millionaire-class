@@ -1,10 +1,10 @@
 <section data-transition="slide-in slide-out" class="tk-slide-detail">
   <h2 class="tk-title tk-title--answer">
     <strong>
-      {{#ifCond answer '===' '1' }} {{answer}} {{option1}} {{/ifCond}}
-      {{#ifCond answer '===' '2' }} {{answer}} {{option2}} {{/ifCond}}
-      {{#ifCond answer '===' '3' }} {{answer}} {{option3}} {{/ifCond}}
-      {{#ifCond answer '===' '4' }} {{answer}} {{option4}} {{/ifCond}}
+      {{#ifCond answer '===' 1 }} {{answer}} {{option1}} {{/ifCond}}
+      {{#ifCond answer '===' 2 }} {{answer}} {{option2}} {{/ifCond}}
+      {{#ifCond answer '===' 3 }} {{answer}} {{option3}} {{/ifCond}}
+      {{#ifCond answer '===' 4 }} {{answer}} {{option4}} {{/ifCond}}
     </strong>
   </h2>
   {{#if answer_source}}<img class="tk-slide-detail__img" data-src="{{answer_source}}" alt="{{answer_source}}" />{{/if}}
