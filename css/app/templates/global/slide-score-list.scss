@@ -1,3 +1,81 @@
 #slide-score-list {
 
+  .tk-score-list-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: space-between;
+    margin-left: 0;
+    list-style: none;
+
+    .tk-score-list-item {
+      flex: 1 1 4em;
+      height: 10vh;
+      margin: .2em;
+      border-radius: 10%;
+      background-color: $tk-success;
+      text-align: center;
+      line-height: 2;
+      color: $tk-white;
+      transition: all .2s ease-in;
+
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #f2f2f2;
+        transition: all .2s ease-in;
+      }
+
+      &:hover {
+        a {
+          color: $tk-white;
+          transform: scale(1.2);
+        }
+      }
+
+      &.tk-score-list-item-20 {
+        background-color: $tk-primary-light;
+        &:hover { background-color: darken($tk-primary-light, 15%); }
+      }
+
+      &.tk-score-list-item-40 {
+        background-color: $tk-success;
+        &:hover { background-color: darken($tk-success, 15%); }
+      }
+
+      &.tk-score-list-item-60 {
+        background-color: $tk-primary;
+        &:hover { background-color: darken($tk-primary, 15%); }
+      }
+
+      &.tk-score-list-item-80 {
+        background-color: $tk-warn;
+        &:hover { background-color: darken($tk-warn, 15%); }
+      }
+
+      &.tk-score-list-item-100 {
+        background-color: $tk-danger;
+        &:hover { background-color: darken($tk-danger, 15%); }
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+        background-color: #cccccc;
+
+        &:hover {
+          background-color: #cccccc;
+
+          a { transform: scale(1); }
+        }
+
+        a {
+          color: #888888;
+          pointer-events: none;
+
+          &:hover { color: #888888; }
+        }
+      }
+    }
+  }
 }

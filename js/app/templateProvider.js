@@ -15,8 +15,6 @@
       slideQuestionAdvanced: {id: 'slideQuestionAdvanced', path: 'templates/slide-question-advanced.hbs', template: '', partial: true},
       slideDetail: {id: 'slideDetail', path: 'templates/slide-detail.hbs', template: '', partial: true},
       slideDecision: {id: 'slideDecision', path: 'templates/slide-decision.hbs', template: '', partial: true},
-      slideYes: {id: 'slideYes', path: 'templates/slide-yes.hbs', template: '', partial: true},
-      slideNo: {id: 'slideNo', path: 'templates/slide-no.hbs', template: '', partial: true},
 
       qcac: {id: 'qcac', path: 'templates/qcac.hbs', template: '', partial: true},
       qiac: {id: 'qiac', path: 'templates/qiac.hbs', template: '', partial: true},

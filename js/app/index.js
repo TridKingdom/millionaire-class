@@ -38,11 +38,13 @@
       $('#tk-millionarie-class').on('click', '.js-decision-option', function(event) {
         var $this = $(this);
         var $title = $this.closest('.js-question-set').find('.js-decision-title');
+        var $questionItem = $($this.data('question-item'));
         var decision = $this.data('decision');
         var optionText = $this.data('option') || tkDataStore.decisionText[decision];
 
         $title.text(optionText);
         $this.siblings('.js-decision-option').hide();
+        $questionItem.addClass('disabled');
       });
     }
 

@@ -1,7 +1,14 @@
-<section class="js-question-set slide-decision" data-transition="zoom-in zoom-out">
+<section class="js-question-set slide-decision" data-transition="zoom-in zoom-out" id="tk-advanced-{{no}}-decision">
   <h2 class="js-decision-title">老師請給分</h2>
   <div class="tk-cubes-container">
-    <div class="tk-cube tk-cube--yes js-decision-option" data-option="{{option1}}" data-decision="yes">O</div>
-    <div class="tk-cube tk-cube--no js-decision-option" data-option="{{option3}}" data-decision="no">X</div>
+    <div class="tk-cube tk-cube--yes js-decision-option"
+      data-option="{{option1}}"
+      data-decision="yes"
+      data-question-item="#tk-advanced-score-list-item-{{no}}">O</div>
+
+    <div class="tk-cube tk-cube--no js-decision-option"
+      data-option="{{option3}}"
+      data-decision="no"
+      data-question-item="#tk-advanced-score-list-item-{{no}}">X</div>
   </div>
 </section>
