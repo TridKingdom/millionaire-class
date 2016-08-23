@@ -1,0 +1,11 @@
+.tk-millionarie-class .tk-loading-icon {
+  border: 0;
+  background-color: transparent;
+  box-shadow: 0 0 transparent;
+
+  &.tk-loading-icon--xs { height: 5vh; }
+  &.tk-loading-icon--sm { height: 10vh; }
+  &.tk-loading-icon--md { height: 15vh; }
+  &.tk-loading-icon--lg { height: 20vh; }
+  &.tk-loading-icon--xl { height: 25vh; }
+}

@@ -3,24 +3,37 @@
 
   var tkDataStore = window.tkDataStore = window.tkDataStore || {};
 
+  // var googleDriveCsvUrl = 'https://docs.google.com/spreadsheets/d/1HnqeQtNhuqWvEJau5VINIn4DhivCSvLD5C3w4dLz5TA/pub?gid=0&single=true&output=csv';
+
   tkDataStore.moduelSource = {
     local: {
       basic: 'data/basic.csv',
       advanced: 'data/advanced.csv',
+      aisa: 'data/aisa.csv',
+      europe: 'data/europe.csv',
+      africa: 'data/africa.csv',
+      southAmerica: 'data/south-america.csv',
+      northAmerica: 'data/north-america.csv',
     },
     cloud: {
       basic: '19gKrd4RpiU7evbYe-Bb8XJ18B7yzaD_ZqHlOFEMFu04',
       advanced: '1HnqeQtNhuqWvEJau5VINIn4DhivCSvLD5C3w4dLz5TA',
-    },
-    download: {
-      basic: 'https://docs.google.com/spreadsheets/d/19gKrd4RpiU7evbYe-Bb8XJ18B7yzaD_ZqHlOFEMFu04/pub?gid=0&single=true&output=csv',
-      advanced: 'https://docs.google.com/spreadsheets/d/1HnqeQtNhuqWvEJau5VINIn4DhivCSvLD5C3w4dLz5TA/pub?gid=0&single=true&output=csv',
+      aisa: 'xxx',
+      europe: 'xxx',
+      africa: 'xxx',
+      southAmerica: 'xxx',
+      northAmerica: 'xxx',
     }
   };
 
   tkDataStore.questionModules = {
     basic: {},
     advanced: {},
+    aisa: {},
+    europe: {},
+    africa: {},
+    southAmerica: {},
+    northAmerica: {},
   };
 
   tkDataStore.decisionText = {
@@ -177,9 +190,11 @@
     function _loadQuestionModule(moduleName) {
       return _buildModule(moduleName)
         .then(function() {
+          _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
         })
         .fail(function() {
+          _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#slide-index';
           console.warn('Fail loading question module <' + moduleName + '> , please try another one');
         });
@@ -190,6 +205,8 @@
      * ====================================================================== */
 
     function _buildModule(moduleName) {
+      _shouldStartLoading(true);
+
       if (tkDataStore.config.source === 'cloud') {
         return _fetchCloudQuestionModule(moduleName)
             .then(_compileQuestionsSlides);
@@ -264,6 +281,19 @@
 
     function _compileTemplate(templateName, model) {
       return Handlebars.compile(tkDataStore.templateSources[templateName].template)(model);
+    }
+
+    function _shouldStartLoading(isLoading) {
+      var $elementsToBeHidden = $('.js-hide-when-loading');
+      var $elementsToBeShown = $('.js-show-when-loading');
+
+      if (isLoading) {
+        $elementsToBeHidden.addClass('is-hidden');
+        $elementsToBeShown.removeClass('is-hidden');
+      } else {
+        $elementsToBeHidden.removeClass('is-hidden');
+        $elementsToBeShown.addClass('is-hidden');
+      }
     }
 
     activate();

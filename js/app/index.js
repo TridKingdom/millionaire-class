@@ -60,9 +60,11 @@
     function _loadQuestionModule(moduleName) {
       return _buildModule(moduleName)
         .then(function() {
+          _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
         })
         .fail(function() {
+          _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#slide-index';
           console.warn('Fail loading question module <' + moduleName + '> , please try another one');
         });
@@ -73,6 +75,8 @@
      * ====================================================================== */
 
     function _buildModule(moduleName) {
+      _shouldStartLoading(true);
+
       if (tkDataStore.config.source === 'cloud') {
         return _fetchCloudQuestionModule(moduleName)
             .then(_compileQuestionsSlides);
@@ -147,6 +151,19 @@
 
     function _compileTemplate(templateName, model) {
       return Handlebars.compile(tkDataStore.templateSources[templateName].template)(model);
+    }
+
+    function _shouldStartLoading(isLoading) {
+      var $elementsToBeHidden = $('.js-hide-when-loading');
+      var $elementsToBeShown = $('.js-show-when-loading');
+
+      if (isLoading) {
+        $elementsToBeHidden.addClass('is-hidden');
+        $elementsToBeShown.removeClass('is-hidden');
+      } else {
+        $elementsToBeHidden.removeClass('is-hidden');
+        $elementsToBeShown.addClass('is-hidden');
+      }
     }
 
     activate();
