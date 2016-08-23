@@ -5,21 +5,23 @@
 
   tkDataStore.csvSource = {
     local: {
-      'basic': 'data/basic.csv',
-      'taiwan': 'data/taiwan.csv',
-      'world': 'data/world.csv',
+      basic: 'data/basic.csv',
+      advanced: 'data/advanced.csv',
     },
     drive: {
-      'basic': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
-      'taiwan': 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
-      'world': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
+      basic: 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
+      advanced: 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
     }
   };
 
   tkDataStore.questionModules = {
     basic: {},
-    taiwan: {},
-    world: {},
+    advanced: {},
+  };
+
+  tkDataStore.decisionText = {
+    yes: '你真了不起',
+    no: '再接再厲吧',
   };
 
 })(window._);;(function($, _, Handlebars) {
@@ -33,6 +35,12 @@
       moduleAdvanced: {id: 'moduleAdvanced', path: 'templates/module-advanced.hbs', template: '', partial: false},
 
       slideReady: {id: 'slideReady', path: 'templates/slide-ready.hbs', template: '', partial: true},
+      slideScoreList: {id: 'slideScoreList', path: 'templates/slide-score-list.hbs', template: '', partial: true},
+
+      slideQuestionBasic: {id: 'slideQuestionBasic', path: 'templates/slide-question-basic.hbs', template: '', partial: true},
+      slideQuestionAdvanced: {id: 'slideQuestionAdvanced', path: 'templates/slide-question-advanced.hbs', template: '', partial: true},
+      slideDetail: {id: 'slideDetail', path: 'templates/slide-detail.hbs', template: '', partial: true},
+      slideDecision: {id: 'slideDecision', path: 'templates/slide-decision.hbs', template: '', partial: true},
 
       qcac: {id: 'qcac', path: 'templates/qcac.hbs', template: '', partial: true},
       qiac: {id: 'qiac', path: 'templates/qiac.hbs', template: '', partial: true},
@@ -97,7 +105,6 @@
 
   });
 })(window.jQuery, window._, window.Handlebars);;(function($, _, Handlebars, Papa, tkDataStore) {
-
   'use strict';
 
   $(function() {
@@ -109,6 +116,7 @@
     function activate() {
       _registerLoadQuestionModuleHandler();
       _registerChooseAnswerHandler();
+      _registerMakeDecisionHandler();
     }
 
     function _registerLoadQuestionModuleHandler() {
@@ -129,6 +137,25 @@
         } else {
           $this.addClass('is-selected is-false');
         }
+      });
+    }
+
+    function _registerMakeDecisionHandler() {
+      $('#tk-millionarie-class').on('click', '.js-decision-option', function(event) {
+        var $this = $(this);
+        var $title = $this.closest('.js-question-set').find('.js-decision-title');
+        var $questionItem = $($this.data('question-item'));
+        var decision = $this.data('decision');
+        var optionText = $this.data('option') || tkDataStore.decisionText[decision];
+
+        // Change Slide Title
+        $title.text(optionText);
+
+        // Hide Sibling Options
+        $this.siblings('.js-decision-option').hide();
+
+        // Make score-list-item disabled
+        $questionItem.addClass('disabled');
       });
     }
 
@@ -175,13 +202,27 @@
 
     function _parseQuestionModule(module) {
       tkDataStore.questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
-      return tkDataStore.questionModules[module.name];
+      return {
+        name: module.name,
+        questions: tkDataStore.questionModules[module.name]
+      };
     }
 
-    function _compileQuestionsSlides(questions) {
-      var slides = _compileTemplate('moduleBasic', {questions: questions});
+    function _compileQuestionsSlides(module) {
+      var moduleTemplateName = 'module' + _.capitalize(module.name);
+      var moduleClassName = 'module-' + module.name;
+      var slides = _compileTemplate(moduleTemplateName, {questions: module.questions});
+
+      // Clean up existing modules
       $('.reveal .slides .js-question-set').remove();
+
+      // Populate loaded module slides
       $('#slide-index').after(slides);
+
+      // Register new module class name to <body>
+      $('.tk-millionarie-class')
+        .removeClass()
+        .addClass('tk-millionarie-class ' + moduleClassName);
     }
 
     function _compileTemplate(templateName, model) {

@@ -1,5 +1,4 @@
 (function($, _, Handlebars, Papa, tkDataStore) {
-
   'use strict';
 
   $(function() {
@@ -11,6 +10,7 @@
     function activate() {
       _registerLoadQuestionModuleHandler();
       _registerChooseAnswerHandler();
+      _registerMakeDecisionHandler();
     }
 
     function _registerLoadQuestionModuleHandler() {
@@ -31,6 +31,25 @@
         } else {
           $this.addClass('is-selected is-false');
         }
+      });
+    }
+
+    function _registerMakeDecisionHandler() {
+      $('#tk-millionarie-class').on('click', '.js-decision-option', function(event) {
+        var $this = $(this);
+        var $title = $this.closest('.js-question-set').find('.js-decision-title');
+        var $questionItem = $($this.data('question-item'));
+        var decision = $this.data('decision');
+        var optionText = $this.data('option') || tkDataStore.decisionText[decision];
+
+        // Change Slide Title
+        $title.text(optionText);
+
+        // Hide Sibling Options
+        $this.siblings('.js-decision-option').hide();
+
+        // Make score-list-item disabled
+        $questionItem.addClass('disabled');
       });
     }
 
@@ -77,13 +96,27 @@
 
     function _parseQuestionModule(module) {
       tkDataStore.questionModules[module.name] = Papa.parse(module.csv, {header: true}).data;
-      return tkDataStore.questionModules[module.name];
+      return {
+        name: module.name,
+        questions: tkDataStore.questionModules[module.name]
+      };
     }
 
-    function _compileQuestionsSlides(questions) {
-      var slides = _compileTemplate('moduleBasic', {questions: questions});
+    function _compileQuestionsSlides(module) {
+      var moduleTemplateName = 'module' + _.capitalize(module.name);
+      var moduleClassName = 'module-' + module.name;
+      var slides = _compileTemplate(moduleTemplateName, {questions: module.questions});
+
+      // Clean up existing modules
       $('.reveal .slides .js-question-set').remove();
+
+      // Populate loaded module slides
       $('#slide-index').after(slides);
+
+      // Register new module class name to <body>
+      $('.tk-millionarie-class')
+        .removeClass()
+        .addClass('tk-millionarie-class ' + moduleClassName);
     }
 
     function _compileTemplate(templateName, model) {

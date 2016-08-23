@@ -14,6 +14,9 @@
 @import 'app/components/title';
 @import 'app/components/questions';
 @import 'app/components/answers';
+@import 'app/components/cube';
+@import 'app/components/header';
+@import 'app/components/footer';
 
 
 /* Tempaltes Loading
@@ -25,7 +28,8 @@
 
 @import 'app/templates/global/slide-question';
 @import 'app/templates/global/slide-detail';
-@import 'app/templates/global/slide-interactions';
+@import 'app/templates/global/slide-score-list';
+@import 'app/templates/global/slide-decision';
 
 @import 'app/templates/questions/qcac';
 @import 'app/templates/questions/qiac';

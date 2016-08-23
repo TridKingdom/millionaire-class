@@ -1,0 +1,41 @@
+.tk-millionarie-class .tk-slides-footer {
+  position: absolute;
+  bottom: 3%;
+  left: 2%;
+  z-index: 999;
+  display: flex;
+  justify-content: flex-start;
+
+  .tk-icon-link {
+    margin-right: .4em;
+    text-align: left;
+
+    .tk-icon-link__img {
+      max-width: 80px;
+    }
+
+    &:hover {
+      .tk-icon-link__img {
+        background-color: transparent;
+        box-shadow: 0 0 transparent;
+      }
+    }
+
+    &.tk-icon-link--slides-index {}
+    &.tk-icon-link--advanced-menu { display: none; }
+  }
+}
+
+.tk-millionarie-class.module-basic .tk-slide-footer {
+  .tk-icon-link {
+    &.tk-icon-link--advanced-menu {
+
+    }
+  }
+}
+
+.tk-millionarie-class.module-advanced .tk-slides-footer {
+  .tk-icon-link {
+    &.tk-icon-link--advanced-menu { display: block; }
+  }
+}

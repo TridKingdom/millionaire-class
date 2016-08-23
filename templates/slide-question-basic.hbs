@@ -1,0 +1,24 @@
+<section data-transition="slide-in slide-out" class="tk-slide-question" data-notes="{{answer}}">
+  <h2 class="tk-title tk-title--question"><strong class="tk-title__no">{{no}}.</strong> {{question}}</h2>
+
+  {{#if question_source }}
+    {{#ifCond type '===' 'qiac'}}<img class="tk-slide-question__img" data-src="{{question_source}}" alt="{{question}}" />{{/ifCond}}
+    {{#ifCond type '===' 'qvac'}}<div class="tk-slide-question__iframe">{{{question_source}}}</div>{{/ifCond}}
+    {{#ifCond type '===' 'qaac'}}<div class="tk-slide-question__iframe">{{{question_source}}}</div>{{/ifCond}}
+  {{/if}}
+
+  <article class="fragment tk-answers clearfix" data-fragment-index="1">
+    <h3 class="tk-answers__answer js-choose-answer" data-option="1" data-answer="{{answer}}">
+      <strong class="tk-answers__no">1</strong> {{option1}}
+    </h3>
+    <h3 class="tk-answers__answer js-choose-answer" data-option="2" data-answer="{{answer}}">
+      <strong class="tk-answers__no">2</strong> {{option2}}
+    </h3>
+    <h3 class="tk-answers__answer js-choose-answer" data-option="3" data-answer="{{answer}}">
+      <strong class="tk-answers__no">3</strong> {{option3}}
+    </h3>
+    <h3 class="tk-answers__answer js-choose-answer" data-option="4" data-answer="{{answer}}">
+      <strong class="tk-answers__no">4</strong> {{option4}}
+    </h3>
+  </article>
+</section>
