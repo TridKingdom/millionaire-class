@@ -197,6 +197,7 @@
           _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#slide-index';
           console.warn('Fail loading question module <' + moduleName + '> , please try another one');
+          _buildModule(moduleName, 'local');
         });
     }
 
@@ -204,13 +205,18 @@
      * [Privatections]
      * ====================================================================== */
 
-    function _buildModule(moduleName) {
+    function _buildModule(moduleName, source) {
+      source = source || tkDataStore.config.source;
       _shouldStartLoading(true);
 
-      if (tkDataStore.config.source === 'cloud') {
+      if (source === 'cloud') {
         return _fetchCloudQuestionModule(moduleName)
-            .then(_compileQuestionsSlides);
-      } else  {
+            .then(_compileQuestionsSlides)
+            .fail(function() {
+              console.warn('Fail loading question module <' + moduleName + '> from Google Sheets, now try loading from local');
+            });
+      }
+      else  {
         return _fetchLocalQuestionModule(moduleName)
           .then(_parseCsvQuestionModule)
           .then(_compileQuestionsSlides);
@@ -244,12 +250,17 @@
 
     function _fetchCloudQuestionModule(moduleName) {
       var deferred = $.Deferred();
+      var timer;
+
+      timer = setTimeout(function () {
+        deferred.reject('loading timeout');
+      }, 5000);
 
       Tabletop.init({
         key: tkDataStore.moduelSource.cloud[moduleName],
         callback: function(data, tabletop) {
           tkDataStore.questionModules[moduleName] = data;
-          console.log(data);
+          clearTimeout(timer);
           deferred.resolve({
             name: moduleName,
             questions: tkDataStore.questionModules[moduleName]
@@ -258,6 +269,7 @@
         simpleSheet: true,
         parseNumbers: true
       });
+
 
       return deferred.promise();
     }
