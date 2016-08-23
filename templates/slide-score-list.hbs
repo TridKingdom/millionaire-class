@@ -1,0 +1,12 @@
+<section id="slide-score-list" class="js-question-set" data-transition="zoom-in zoom-out">
+  <h2>來抽題目吧</h2>
+
+  <ul class="tk-score-list-container">
+  {{#each questions as |question| }}
+    <li class="tk-score-list-item tk-score-list-item-{{question.score}}" id="tk-advanced-score-list-item-{{no}}">
+      <a href="#/tk-advanced-{{no}}">{{question.score}}</a>
+    </li>
+  {{/each}}
+  </ul>
+
+</section>

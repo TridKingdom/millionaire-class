@@ -10,8 +10,8 @@
     cursor: pointer;
 
     &.is-selected {
-      &.is-true { background-color: yellowgreen; }
-      &.is-false { background-color: tomato; }
+      &.is-true { background-color: $tk-success; }
+      &.is-false { background-color: $tk-danger; }
     }
 
     &.tk-answers__answer--has-image {

@@ -1,0 +1,21 @@
+.tk-millionarie-class .tk-cube {
+  width: 40vh;
+  height: 40vh;
+  line-height: 40vh;
+  margin: .1em;
+  font-size: 7em;
+  color: $tk-white;
+  cursor: pointer;
+  border-radius: 10%;
+  transition: all .2s ease-in;
+
+  &--yes {
+    background-color: $tk-success;
+    &:hover { background-color: darken($tk-success, 10%); }
+  }
+
+  &--no {
+    background-color: $tk-danger;
+    &:hover { background-color: darken($tk-danger, 10%); }
+  }
+}

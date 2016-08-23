@@ -5,21 +5,23 @@
 
   tkDataStore.csvSource = {
     local: {
-      'basic': 'data/basic.csv',
-      'taiwan': 'data/taiwan.csv',
-      'world': 'data/world.csv',
+      basic: 'data/basic.csv',
+      advanced: 'data/advanced.csv',
     },
     drive: {
-      'basic': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
-      'taiwan': 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
-      'world': 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
+      basic: 'https://docs.google.com/spreadsheets/d/193O-BB0Z4lESRCLHWkJX8nU2SmhavMnNX5gHJiSCVp8/export?format=csv',
+      advanced: 'https://docs.google.com/document/d/1j3z7_E8xhprMX2yT3rHnkA37jWKtJTbfyDmk0oDej9M/export',
     }
   };
 
   tkDataStore.questionModules = {
     basic: {},
-    taiwan: {},
-    world: {},
+    advanced: {},
+  };
+
+  tkDataStore.decisionText = {
+    yes: '你真了不起',
+    no: '再接再厲吧',
   };
 
 })(window._);
