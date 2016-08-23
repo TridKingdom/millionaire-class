@@ -42,8 +42,13 @@
         var decision = $this.data('decision');
         var optionText = $this.data('option') || tkDataStore.decisionText[decision];
 
+        // Change Slide Title
         $title.text(optionText);
+
+        // Hide Sibling Options
         $this.siblings('.js-decision-option').hide();
+
+        // Make score-list-item disabled
         $questionItem.addClass('disabled');
       });
     }
@@ -99,9 +104,19 @@
 
     function _compileQuestionsSlides(module) {
       var moduleTemplateName = 'module' + _.capitalize(module.name);
+      var moduleClassName = 'module-' + module.name;
       var slides = _compileTemplate(moduleTemplateName, {questions: module.questions});
+
+      // Clean up existing modules
       $('.reveal .slides .js-question-set').remove();
+
+      // Populate loaded module slides
       $('#slide-index').after(slides);
+
+      // Register new module class name to <body>
+      $('.tk-millionarie-class')
+        .removeClass()
+        .addClass('tk-millionarie-class ' + moduleClassName);
     }
 
     function _compileTemplate(templateName, model) {

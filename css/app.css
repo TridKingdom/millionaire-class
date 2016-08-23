@@ -81,6 +81,35 @@
     .tk-millionarie-class .tk-cube--no:hover {
       background-color: #ff3814; }
 
+.tk-millionarie-class .tk-slides-header {
+  position: absolute;
+  top: 0;
+  left: -20%; }
+
+.tk-millionarie-class .tk-slides-footer {
+  position: absolute;
+  bottom: 0;
+  left: -20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start; }
+  .tk-millionarie-class .tk-slides-footer .tk-icon-link {
+    margin-right: .4em;
+    text-align: left; }
+    .tk-millionarie-class .tk-slides-footer .tk-icon-link .tk-icon-link__img {
+      max-width: 80px; }
+    .tk-millionarie-class .tk-slides-footer .tk-icon-link:hover .tk-icon-link__img {
+      background-color: transparent;
+      box-shadow: 0 0 transparent; }
+    .tk-millionarie-class .tk-slides-footer .tk-icon-link.tk-icon-link--advanced-menu {
+      display: none; }
+
+.tk-millionarie-class.module-advanced .tk-slides-footer .tk-icon-link.tk-icon-link--advanced-menu {
+  display: block; }
+
 /* Tempaltes Loading
    ========================================================================== */
 #slide-index .tk-option {
