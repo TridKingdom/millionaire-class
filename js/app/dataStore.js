@@ -48,4 +48,22 @@
     timer: 60,
   };
 
+  tkDataStore.soundEffectSource = {
+      applause: 'http://www.soundjay.com/human/applause-01.mp3',
+      success: 'http://www.soundjay.com/misc/dream-harp-02.mp3',
+      fail: 'http://www.soundjay.com/misc/fail-trombone-02.mp3',
+      screaming: 'http://www.soundjay.com/human/man-screaming-01.mp3',
+      laser: 'http://www.soundjay.com/button/button-3.mp3',
+      handsaw: 'http://www.soundjay.com/mechanical/handsaw-1.mp3',
+  };
+
+  tkDataStore.soundEffect = {
+    applause: new Audio(tkDataStore.soundEffectSource.applause),
+    success: new Audio(tkDataStore.soundEffectSource.success),
+    fail: new Audio(tkDataStore.soundEffectSource.fail),
+    screaming: new Audio(tkDataStore.soundEffectSource.screaming),
+    laser: new Audio(tkDataStore.soundEffectSource.laser),
+    handsaw: new Audio(tkDataStore.soundEffectSource.handsaw),
+  };
+
 })(window._);
