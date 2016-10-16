@@ -48,7 +48,26 @@
     timer: 60,
   };
 
-})(window._);;(function($, _, Handlebars) {
+  tkDataStore.soundEffectSource = {
+      applause: 'http://www.soundjay.com/human/applause-01.mp3',
+      success: 'http://www.soundjay.com/misc/dream-harp-02.mp3',
+      fail: 'http://www.soundjay.com/misc/fail-trombone-02.mp3',
+      screaming: 'http://www.soundjay.com/human/man-screaming-01.mp3',
+      laser: 'http://www.soundjay.com/button/button-3.mp3',
+      handsaw: 'http://www.soundjay.com/mechanical/handsaw-1.mp3',
+  };
+
+  tkDataStore.soundEffect = {
+    applause: new Audio(tkDataStore.soundEffectSource.applause),
+    success: new Audio(tkDataStore.soundEffectSource.success),
+    fail: new Audio(tkDataStore.soundEffectSource.fail),
+    screaming: new Audio(tkDataStore.soundEffectSource.screaming),
+    laser: new Audio(tkDataStore.soundEffectSource.laser),
+    handsaw: new Audio(tkDataStore.soundEffectSource.handsaw),
+  };
+
+})(window._);
+;(function($, _, Handlebars) {
   'use strict';
 
   $(function() {
@@ -128,13 +147,14 @@
     activate();
 
   });
-})(window.jQuery, window._, window.Handlebars);;(function($, _, Handlebars, Papa, Tabletop, tkDataStore) {
+})(window.jQuery, window._, window.Handlebars);
+;(function($, _, Handlebars, Papa, Tabletop, tkDataStore) {
   'use strict';
 
   $(function() {
 
     /* =========================================================================
-     * [Event Her Registrations]
+     * [Event Handler Registrations]
      * ====================================================================== */
 
     function activate() {
@@ -158,8 +178,10 @@
 
         if (selectedAnswer === correctAnswer) {
           $this.addClass('is-selected is-true');
+          _soundEffect('success', 'play');
         } else {
           $this.addClass('is-selected is-false');
+          _soundEffect('fail', 'play');
         }
       });
     }
@@ -178,31 +200,39 @@
         // Hide Sibling Options
         $this.siblings('.js-decision-option').hide();
 
+        // Make sound effect
+        if (decision === 'yes') _soundEffect('applause', 'play');
+        if (decision === 'no') _soundEffect('fail', 'play');
+
         // Make score-list-item disabled
         $questionItem.addClass('disabled');
       });
     }
 
     /* =========================================================================
-     * [Event Her Functions]
+     * [Event Handler Functions]
      * ====================================================================== */
 
     function _loadQuestionModule(moduleName) {
+      _soundEffect('laser', 'loop');
+
       return _buildModule(moduleName)
         .then(function() {
           _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
+          _soundEffect('laser', 'stop');
         })
         .fail(function() {
           _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#slide-index';
           console.warn('Fail loading question module <' + moduleName + '> , please try another one');
           _buildModule(moduleName, 'local');
+          _soundEffect('laser', 'stop');
         });
     }
 
     /* =========================================================================
-     * [Privatections]
+     * [Private functions]
      * ====================================================================== */
 
     function _buildModule(moduleName, source) {
@@ -305,6 +335,37 @@
       } else {
         $elementsToBeHidden.removeClass('is-hidden');
         $elementsToBeShown.addClass('is-hidden');
+      }
+    }
+
+    function _soundEffect(type, mode) {
+      var soundEffect = tkDataStore.soundEffect[type];
+
+      // Stop all other soundeffect
+      Object.keys(tkDataStore.soundEffect).forEach(function(key) {
+        tkDataStore.soundEffect[key].currentTime = 0;
+        tkDataStore.soundEffect[key].pause();
+      });
+
+      switch (mode) {
+        case 'play':
+          soundEffect.play();
+          return;
+
+        case 'loop':
+          soundEffect.loop = true;
+          soundEffect.play();
+          return;
+
+        case 'stop':
+          soundEffect.loop = false;
+          soundEffect.currentTime = 0;
+          soundEffect.pause();
+          return;
+
+        default:
+          soundEffect.play();
+          return;
       }
     }
 
