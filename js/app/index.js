@@ -4,7 +4,7 @@
   $(function() {
 
     /* =========================================================================
-     * [Event Her Registrations]
+     * [Event Handler Registrations]
      * ====================================================================== */
 
     function activate() {
@@ -28,8 +28,10 @@
 
         if (selectedAnswer === correctAnswer) {
           $this.addClass('is-selected is-true');
+          _soundEffect('success', 'play');
         } else {
           $this.addClass('is-selected is-false');
+          _soundEffect('fail', 'play');
         }
       });
     }
@@ -48,31 +50,39 @@
         // Hide Sibling Options
         $this.siblings('.js-decision-option').hide();
 
+        // Make sound effect
+        if (decision === 'yes') _soundEffect('applause', 'play');
+        if (decision === 'no') _soundEffect('fail', 'play');
+
         // Make score-list-item disabled
         $questionItem.addClass('disabled');
       });
     }
 
     /* =========================================================================
-     * [Event Her Functions]
+     * [Event Handler Functions]
      * ====================================================================== */
 
     function _loadQuestionModule(moduleName) {
+      _soundEffect('laser', 'loop');
+
       return _buildModule(moduleName)
         .then(function() {
           _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#/slide-ready';
+          _soundEffect('laser', 'stop');
         })
         .fail(function() {
           _shouldStartLoading(false);
           window.location.href = window.location.origin + window.location.pathname + '#slide-index';
           console.warn('Fail loading question module <' + moduleName + '> , please try another one');
           _buildModule(moduleName, 'local');
+          _soundEffect('laser', 'stop');
         });
     }
 
     /* =========================================================================
-     * [Privatections]
+     * [Private functions]
      * ====================================================================== */
 
     function _buildModule(moduleName, source) {
@@ -175,6 +185,37 @@
       } else {
         $elementsToBeHidden.removeClass('is-hidden');
         $elementsToBeShown.addClass('is-hidden');
+      }
+    }
+
+    function _soundEffect(type, mode) {
+      var soundEffect = tkDataStore.soundEffect[type];
+
+      // Stop all other soundeffect
+      Object.keys(tkDataStore.soundEffect).forEach(function(key) {
+        tkDataStore.soundEffect[key].currentTime = 0;
+        tkDataStore.soundEffect[key].pause();
+      });
+
+      switch (mode) {
+        case 'play':
+          soundEffect.play();
+          return;
+
+        case 'loop':
+          soundEffect.loop = true;
+          soundEffect.play();
+          return;
+
+        case 'stop':
+          soundEffect.loop = false;
+          soundEffect.currentTime = 0;
+          soundEffect.pause();
+          return;
+
+        default:
+          soundEffect.play();
+          return;
       }
     }
 
