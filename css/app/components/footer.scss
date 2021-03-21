@@ -21,7 +21,12 @@
       }
     }
 
-    &.tk-icon-link--slides-index {}
+    &.tk-icon-link--slides-index {
+      padding: 8px;
+      border-radius: 50%;
+      background-color: #FFFFFF;
+    }
+
     &.tk-icon-link--advanced-menu { display: none; }
   }
 }
