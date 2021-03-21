@@ -5,4 +5,5 @@
 ## 開始遊戲
 Start the game [**here**](https://tridkingdom.github.io/millionaire-class)
 
-![TridKingdom](https://github.com/TridKingdom/millionaire-class/blob/master/assets/logo/logo.png)
+![tridkingdom_tab icon](https://user-images.githubusercontent.com/6642653/111897000-592d0100-8a15-11eb-988c-98e6eaab343b.png)
+
