@@ -16,8 +16,8 @@
       northAmerica: 'data/north-america.csv',
     },
     cloud: {
-      basic: '19gKrd4RpiU7evbYe-Bb8XJ18B7yzaD_ZqHlOFEMFu04',
-      advanced: '1HnqeQtNhuqWvEJau5VINIn4DhivCSvLD5C3w4dLz5TA',
+      basic: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRMADVRTsB4IbEtTGk4DF_oTgfhmAapMZLMOkIv62vo420fFqDP4Kkook6aMRFHjU3cFyYlIDbHx3Dr/pub?gid=1080939665&single=true&output=csv',
+      advanced: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRcJJOaW57_GWF1GWixMQhAPtLfVqblSg42vAqB70BIpvJyRu5KTAvk8BxtJf0vKB58h21zHhAU2rla/pub?gid=0&single=true&output=csv',
       aisa: 'xxx',
       europe: 'xxx',
       africa: 'xxx',
@@ -286,20 +286,18 @@
         deferred.reject('loading timeout');
       }, 5000);
 
-      Tabletop.init({
-        key: tkDataStore.moduelSource.cloud[moduleName],
-        callback: function(data, tabletop) {
-          tkDataStore.questionModules[moduleName] = data;
+      Papa.parse(tkDataStore.moduelSource.cloud[moduleName], {
+        download: true,
+        header: true,
+        complete: function (results) {
+          tkDataStore.questionModules[moduleName] = results.data;
           clearTimeout(timer);
           deferred.resolve({
             name: moduleName,
             questions: tkDataStore.questionModules[moduleName]
           });
-        },
-        simpleSheet: true,
-        parseNumbers: true
+        }
       });
-
 
       return deferred.promise();
     }

@@ -136,20 +136,18 @@
         deferred.reject('loading timeout');
       }, 5000);
 
-      Tabletop.init({
-        key: tkDataStore.moduelSource.cloud[moduleName],
-        callback: function(data, tabletop) {
-          tkDataStore.questionModules[moduleName] = data;
+      Papa.parse(tkDataStore.moduelSource.cloud[moduleName], {
+        download: true,
+        header: true,
+        complete: function (results) {
+          tkDataStore.questionModules[moduleName] = results.data;
           clearTimeout(timer);
           deferred.resolve({
             name: moduleName,
             questions: tkDataStore.questionModules[moduleName]
           });
-        },
-        simpleSheet: true,
-        parseNumbers: true
+        }
       });
-
 
       return deferred.promise();
     }
